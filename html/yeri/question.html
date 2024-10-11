@@ -2,171 +2,112 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionnaire</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <style>
-        /* 모달 스타일 */
-        .modal {
-            display: none; /* 기본적으로 숨김 */
-            position: fixed; /* 고정 위치 */
-            z-index: 1; /* 위에 표시 */
-            left: 0;
-            top: 0;
-            width: 100%; /* 전체 화면 */
-            height: 100%; /* 전체 화면 */
-            overflow: auto; /* 내용 넘침 방지 */
-            background-color: rgba(0, 0, 0, 0.4); /* 투명한 검정 배경 */
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 상단 중앙 정렬 */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* 모달 너비 */
-            max-width: 600px; /* 최대 너비 */
-            position: relative; /* 자식 요소에 대해 상대적 위치 */
-            top: 50%; /* 수직 중앙 정렬을 위한 위치 */
-            transform: translateY(-50%); /* 수직 중앙 정렬 */
-        }
-
-        .close {
-            color: #aaa;
-            float: right; /* 오른쪽 정렬 */
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* 이미지 스타일 */
-        .modal-image {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionnaire</title>
+<link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body>
 
-    <div class="container">
-        <div id="div1" class="question">
-            주기적으로 새로운 친구를 사귄다.
-        </div>
+<div class="container">
+<div id="div1" class="question">
+주기적으로 새로운 친구를 사귄다.
+</div>
 
-        <div id="div2" class="options">
-            <label>
-                <input type="radio" name="answer" value="4"> 강지가 너무 좋다.
-            </label>
-            <label>
-                <input type="radio" name="answer" value="3"> 강지가 좋다.
-            </label>
-            <label>
-                <input type="radio" name="answer" value="2"> 강지가 그저 그렇다.
-            </label>
-            <label>
-                <input type="radio" name="answer" value="1" disabled> 도대체 강지를 왜 만나는지 모르겠다.
-            </label>
-        </div>
+<div id="div2" class="options">
+<label>
+<input type="radio" name="answer" value="4"> 강지가 너무 좋다.
+</label>
+<label>
+<input type="radio" name="answer" value="3"> 강지가 좋다.
+</label>
+<label>
+<input type="radio" name="answer" value="2"> 강지가 그저 그렇다.
+</label>
+<label>
+<input type="radio" name="answer" value="1" disabled> 도대체 강지를 왜 만나는지 모르겠다.
+</label>
+</div>
 
-        <div id="div3" class="buttons">
-            <button id="prev-btn" disabled>Prev</button>
-            <button id="next-btn">Next</button>
-        </div>
-    </div>
+<div id="div3" class="buttons">
+<button id="prev-btn" disabled>Prev</button>
+<button id="next-btn">Next</button>
+</div>
+</div>
 
-    <!-- 모달 -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" aria-label="모달 닫기">&times;</span>
-            <img src="/assets/images/embarrassed.PNG" alt="Your Image" class="modal-image">
-        </div>
-    </div>
+<script>
+// 현재 질문 번호 및 답변을 저장할 객체
+let currentQuestion = 1;
+let answers = {};
 
-    <script>
-        // 모달 관련 요소
-        const modal = document.getElementById("myModal");
-        const closeModal = document.getElementsByClassName("close")[0];
-        
-        // 현재 질문 번호 및 답변을 저장할 객체
-        let currentQuestion = 1;
-        let answers = {};
+// Next 버튼 클릭 이벤트
+document.getElementById('next-btn').addEventListener('click', function () {
+// 선택한 라디오 값 가져오기
+let selectedValue = document.querySelector('input[name="answer"]:checked');
 
-        // Next 버튼 클릭 이벤트
-        document.getElementById('next-btn').addEventListener('click', function () {
-            // 선택한 라디오 값 가져오기
-            let selectedValue = document.querySelector('input[name="answer"]:checked');
+if (!selectedValue) {
+alert('먼저 답을 선택해 주세요.');
+return;
+}
 
-            if (!selectedValue) {
-                alert('먼저 답을 선택해 주세요.');
-                return;
-            }
-
-            // 선택된 값이 '2'라면 모달 띄우기
+            if (selectedValue.value === "3") {
             if (selectedValue.value === "2") {
-                modal.style.display = "block"; // 모달 표시
-                return; // 다음 동작 방지
-            }
+alert('힝..');
+}
 
-            // 답변 저장
-            answers[`q${currentQuestion}`] = selectedValue.value;
 
-            // 질문 업데이트
-            updateQuestion();
-        });
+// 답변 저장
+answers[`q${currentQuestion}`] = selectedValue.value;
 
-        // 모달 닫기 이벤트
-        closeModal.onclick = function () {
-            modal.style.display = "none"; // 모달 숨기기
-        }
+// 첫 번째 질문에서 두 번째 질문으로 이동
+if (currentQuestion === 1) {
+document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
+document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
+currentQuestion++;
+document.getElementById('prev-btn').disabled = false;
 
-        // 모달 외부 클릭 시 닫기
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none"; // 모달 숨기기
-            }
-        }
+// 두 번째 질문에서 세 번째 질문으로 이동
+} else if (currentQuestion === 2) {
+document.getElementById('div1').textContent = '일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다.';
+document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
+currentQuestion++;
 
-        // Prev 버튼 클릭 이벤트
-        document.getElementById('prev-btn').addEventListener('click', function () {
-            if (currentQuestion > 1) {
-                currentQuestion--;
-                updateQuestion();
-            }
-        });
+// 세 번째 질문 이후 event.html로 이동 및 답변 저장
+} else if (currentQuestion === 3) {
+console.log(answers); // 답변 출력 (디버깅 용도)
 
-        function updateQuestion() {
-            // 질문 업데이트 로직
-            switch (currentQuestion) {
-                case 1:
-                    document.getElementById('div1').textContent = '주기적으로 새로운 친구를 사귄다.';
-                    break;
-                case 2:
-                    document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
-                    break;
-                case 3:
-                    document.getElementById('div1').textContent = '일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다.';
-                    break;
-                default:
-                    // 세 번째 질문 이후 event.html로 이동
-                    console.log(answers); // 답변 출력 (디버깅 용도)
-                    localStorage.setItem('answers', JSON.stringify(answers));
-                    window.location.href = '/html/yeri/result.html';
-                    return;
-            }
+// 답변을 localStorage에 저장
+localStorage.setItem('answers', JSON.stringify(answers));
 
-            // 라디오 버튼 초기화 및 Prev 버튼 상태 업데이트
-            document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
-            document.getElementById('prev-btn').disabled = currentQuestion === 1;
-        }
-    </script>
+// event.html로 이동
+window.location.href = '/html/yeri/result.html';
+}
+});
+
+// Prev 버튼 클릭 이벤트
+document.getElementById('prev-btn').addEventListener('click', function () {
+if (currentQuestion === 2) {
+// 첫 번째 질문으로 돌아가기
+document.getElementById('div1').textContent = '주기적으로 새로운 친구를 사귄다.';
+let previousAnswer = answers['q1'];
+if (previousAnswer) {
+document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
+}
+currentQuestion--;
+document.getElementById('prev-btn').disabled = true;
+
+} else if (currentQuestion === 3) {
+// 두 번째 질문으로 돌아가기
+document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
+let previousAnswer = answers['q2'];
+if (previousAnswer) {
+document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
+}
+currentQuestion--;
+}
+});
+</script>
 
 </body>
 
