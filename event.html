@@ -15,41 +15,51 @@
             box-sizing: border-box;
         }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
+        /* 기본 스타일 (웹) */
+.letter-container {
+    position: relative;
+    width: 80%; /* 웹에서의 기본 너비 */
+    max-width: 600px; /* 최대 너비 */
+    aspect-ratio: 3/4; /* 비율 */
+    background-image: url('letter5.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-        /* 기본 스타일: 웹(데스크탑)용 */
-        .letter-container {
-            position: relative;
-            width: 80%; /* 기본 너비 */
-            max-width: 600px; /* 최대 너비 */
-            aspect-ratio: 3/4; /* 비율 */
-            background-image: url('letter5.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        /* 모바일용 스타일 (화면 너비 768px 이하) */
-        @media only screen and (max-width: 768px) {
-            .letter-container {
-                width: 90%; /* 모바일에서는 더 넓게 설정 */
-                max-width: 100%; /* 최대 너비 제한 해제 */
-                aspect-ratio: auto; /* 비율 조정 가능 */
-                background-size: contain; /* 이미지가 잘리지 않게 함 */
-                background-position: top; /* 이미지가 상단에 위치 */
-            }
-            
-            .letter-content {
-                font-size: 0.9rem; /* 모바일에서는 글씨 크기를 더 작게 */
-            }
-        }
+/* 아이폰 SE, 8, 12, 13, 14 (작은 화면을 위한 스타일) */
+@media only screen and (max-width: 390px) {
+    .letter-container {
+        width: 90%; /* 더 넓게 설정 */
+        max-width: 100%; /* 너비 제한 없음 */
+        aspect-ratio: auto; /* 비율 조정 */
+        background-size: contain; /* 이미지가 잘리지 않게 설정 */
+        background-position: center; /* 이미지가 가운데 오도록 */
+        padding: 10px; /* 컨테이너 내 여백 추가 */
+    }
+
+    .letter-content {
+        font-size: 0.8rem; /* 글씨 크기 작게 */
+        padding: 15px; /* 텍스트 여백 */
+    }
+}
+
+/* 아이폰 Pro Max (더 큰 화면용) */
+@media only screen and (max-width: 428px) {
+    .letter-container {
+        width: 85%; /* 더 넓은 화면에서 약간 줄임 */
+        max-width: 100%; /* 최대 너비 제한 없음 */
+        aspect-ratio: 3/4; /* 비율 유지 */
+        background-size: cover; /* 이미지가 전체를 덮음 */
+        padding: 20px; /* 여백 추가 */
+    }
+
+    .letter-content {
+        font-size: 1rem; /* 글씨 크기 약간 키움 */
+        padding: 20px; /* 텍스트 여백 */
+    }
+}
 
     </style>
 </head>
