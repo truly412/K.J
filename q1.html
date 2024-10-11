@@ -67,10 +67,15 @@
                 document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
                 currentQuestion++;
 
-            // 세 번째 질문 이후 event.html로 이동
+            // 세 번째 질문 이후 event.html로 이동 및 답변 저장
             } else if (currentQuestion === 3) {
                 console.log(answers); // 답변 출력 (디버깅 용도)
-                window.location.href = 'event.html'; // event.html로 이동
+                
+                // 답변을 localStorage에 저장
+                localStorage.setItem('answers', JSON.stringify(answers));
+
+                // event.html로 이동
+                window.location.href = 'event.html';
             }
         });
 
