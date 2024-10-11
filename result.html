@@ -89,7 +89,8 @@
         }
 
         /* 이미지 스타일 */
-        #angry-image {
+        #angry-image,
+        #angry-image-20 {
             display: none; /* 초기에는 숨김 */
             margin-top: 20px; /* 상단 여백 */
             max-width: 100%; /* 최대 너비 설정 */
@@ -118,6 +119,7 @@
 
         <!-- 이미지 추가 -->
         <img id="angry-image" src="angry.PNG" alt="Angry Image">
+        <img id="angry-image-20" src="angry2.PNG" alt="Angry Image 20">
     </div>
 
     <script>
@@ -200,8 +202,14 @@
 
             // 10번 눌렸을 때
             if (noButtonClickCount === 10) {
-                document.getElementById('angry-image').style.display = 'block'; // 이미지 표시
+                document.getElementById('angry-image').style.display = 'block'; // 첫 번째 이미지 표시
             }
+
+            // 20번 눌렸을 때
+            if (noButtonClickCount === 20) {
+                document.getElementById('angry-image-20').style.display = 'block'; // 두 번째 이미지 표시
+            }
+
             // 추가 조건을 설정하려면 여기에 작성
         });
     </script>
