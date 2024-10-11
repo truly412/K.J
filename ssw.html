@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -42,6 +41,13 @@
         let currentQuestion = 1;
         let answers = {};
 
+        // 올바른 답변 저장
+        const correctAnswers = {
+            1: '3', // 서상원 크기 질문의 정답
+            2: '2', // 송기현 젖꼭지 개수 질문의 정답
+            3: '1'  // 최승호 자녀 수 질문의 정답
+        };
+
         // Next 버튼 클릭 이벤트
         document.getElementById('next-btn').addEventListener('click', function () {
             // 선택한 라디오 값 가져오기
@@ -54,6 +60,12 @@
 
             // 답변 저장
             answers[`q${currentQuestion}`] = selectedValue.value;
+
+            // 현재 질문의 정답 확인
+            if (selectedValue.value !== correctAnswers[currentQuestion]) {
+                alert('오답입니다. 다시 시도해 주세요.');
+                return; // 정답이 아니면 다음 질문으로 넘어가지 않음
+            }
 
             // 첫 번째 질문에서 두 번째 질문으로 이동
             if (currentQuestion === 1) {
