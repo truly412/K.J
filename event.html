@@ -1,118 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>초대장</title>
+    <title>Letter Display</title>
     <style>
-        /* 기본 CSS 스타일 */
         body {
-            font-family: 'Georgia', serif;
-            background-color: #f5f5f5;
-            color: #4a4a4a;
-            text-align: center;
-            padding: 50px;
-            background-image: url('letter.jpg'); /* 배경 이미지 설정 */
-            background-size: cover; /* 배경 이미지 크기 조절 */
-            background-position: center; /* 배경 이미지 위치 조정 */
+            margin: 0;
+            padding: 0;
+            background-image: url('letter.jpg'); /* Background image */
+            background-size: cover; /* Cover the entire background */
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .invitation-container {
-            background: rgba(255, 255, 255, 0.8); /* 투명 배경 */
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            animation: slideIn 1s ease-out; /* 애니메이션 효과 */
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-            color: #c04000;
-            animation: textAppear 0.5s ease forwards;
-            opacity: 0; /* 초기 투명도 설정 */
-        }
-
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
-            margin: 20px 0;
-            animation: textAppear 0.5s ease forwards;
-            opacity: 0; /* 초기 투명도 설정 */
-        }
-
-        .footer {
-            margin-top: 30px;
-            font-size: 1em;
-            color: #7a7a7a;
-            position: relative;
-            z-index: 2;
-            animation: textAppear 0.5s ease forwards;
-            opacity: 0; /* 초기 투명도 설정 */
-        }
-
-        @keyframes textAppear {
-            0% {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        #letter {
+            font-size: 2em; /* Adjust font size as needed */
+            color: white; /* Text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: adds shadow for better visibility */
         }
     </style>
 </head>
-
 <body>
-
-    <div class="invitation-container">
-        <h1>초대합니다!</h1>
-        <p id="propose-text"></p>
-        <div class="footer">당신의 특별한 날에 함께해 주세요.</div>
-    </div>
-
+    <div id="letter"></div>
+    
     <script>
-        const proposeText = "당신을 위한 특별한 초대입니다. 우리의 기쁜 날에 함께 하시길 바랍니다.";
-        document.getElementById('propose-text').textContent = proposeText;
+        const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // Your text here
+        const letterDiv = document.getElementById('letter');
 
-        // 애니메이션 지연 설정
-        const title = document.querySelector('h1');
-        const paragraph = document.getElementById('propose-text');
-        const footer = document.querySelector('.footer');
+        let index = 0;
 
-        setTimeout(() => {
-            title.style.opacity = 1; // 제목 표시
-        }, 500);
+        function displayNextCharacter() {
+            if (index < letter.length) {
+                letterDiv.innerHTML += letter[index]; // Append the next character
+                index++;
+                setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
+            }
+        }
 
-        setTimeout(() => {
-            paragraph.style.opacity = 1; // 문장 표시
-        }, 1000);
-
-        setTimeout(() => {
-            footer.style.opacity = 1; // 하단 메시지 표시
-        }, 1500);
+        displayNextCharacter(); // Start displaying characters
     </script>
 </body>
-
 </html>
