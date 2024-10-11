@@ -8,20 +8,26 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('letter4.PNG'); /* 배경 이미지 */
-            background-size: 60% 80%; /* 너비를 80%로, 높이는 자동 */
+            background-image: url('letter4.PNG'); /* 배경 이미지 설정 */
+            background-size: 50% 80%; /* 너비를 80%로, 높이는 자동 */
             background-repeat: no-repeat; /* 이미지 반복 안함 */
             background-position: center; /* 중앙 정렬 */
             height: 100vh; /* 전체 화면 높이 */
             display: flex;
             align-items: center; /* 수직 중앙 정렬 */
             justify-content: center; /* 수평 중앙 정렬 */
+            position: relative; /* 자식 요소에 대해 위치 지정 */
         }
 
-        #letter {
-            font-size: 2em; /* 글자 크기 조정 */
-            color: white; /* 글자 색상 */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 가독성을 위한 그림자 효과 */
+        /* 배경을 연하게 하기 위한 레이어 */
+        .overlay {
+            position: absolute; /* 부모 요소에 대해 절대 위치 지정 */
+            top: 0; /* 위쪽 정렬 */
+            left: 0; /* 왼쪽 정렬 */
+            right: 0; /* 오른쪽 정렬 */
+            bottom: 0; /* 아래쪽 정렬 */
+            background-color: rgba(255, 255, 255, 0.5); /* 흰색 배경색을 50% 투명도로 설정 */
+            z-index: 1; /* 배경 이미지보다 위에 표시 */
         }
     </style>
 </head>
