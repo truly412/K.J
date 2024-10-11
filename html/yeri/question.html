@@ -6,6 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionnaire</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <style>
+    /* 모달 스타일 */
+    .modal {
+        display: none; /* 기본적으로 숨김 */
+        position: fixed; /* 고정 위치 */
+        z-index: 1; /* 위에 표시 */
+        left: 0;
+        top: 0;
+        width: 100%; /* 전체 화면 */
+        height: 100%; /* 전체 화면 */
+        overflow: auto; /* 내용 넘침 방지 */
+        background-color: rgb(0, 0, 0); /* 검정 배경 */
+        background-color: rgba(0, 0, 0, 0.4); /* 투명도 */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 상단 중앙 정렬 */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* 모달 너비 */
+    }
+
+    .close {
+        color: #aaa;
+        float: right; /* 오른쪽 정렬 */
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* 이미지 스타일 */
+    .modal-image {
+        max-width: 100%;
+        height: auto;
+    }
+    </style>
 </head>
 
 <body>
@@ -36,7 +79,19 @@
         </div>
     </div>
 
+    <!-- 모달 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img src="/assets/images/embarrassed.PNG" alt="Your Image" class="modal-image">
+        </div>
+    </div>
+
     <script>
+        // 모달 관련 요소
+        const modal = document.getElementById("myModal");
+        const span = document.getElementsByClassName("close")[0];
+        
         // 현재 질문 번호 및 답변을 저장할 객체
         let currentQuestion = 1;
         let answers = {};
@@ -52,7 +107,20 @@
             }
 
             if (selectedValue.value === "2") {
-                alert('힝..');
+                modal.style.display = "block"; // 모달 표시
+                return; // 다음 동작 방지
+            }
+
+            // 모달 닫기 이벤트
+            span.onclick = function () {
+                modal.style.display = "none"; // 모달 숨기기
+            }
+    
+            // 모달 외부 클릭 시 닫기
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none"; // 모달 숨기기
+                }
             }
             
 
