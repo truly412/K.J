@@ -4,20 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Letter Display</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Google Fonts -->
     <style>
         body {
-/*             margin: 0;
-            padding: 0;
-            background-image: url('letter5.jpg'); /* 배경 이미지 */
-            background-size: contain; /* 배경 이미지를 화면에 맞춰 조정 */
-            background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
-            background-position: center; /* 중앙에 위치 */
-            height: 100vh; /* 전체 뷰포트 높이 */
-            width: 100vw; /* 전체 뷰포트 너비 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
- */
             margin: 0;
             padding: 0;
             background-image: url('letter5.jpg');
@@ -26,18 +15,20 @@
             width: 100%;
             display: flex;
             align-items: center;
-    justify-content: center;
-    background-size: contain;
-    background-position: center;
+            justify-content: center;
+            background-size: contain;
+            background-position: center;
         }
 
         #letter {
-            font-size: 2em; /* 필요에 따라 글자 크기 조정 */
-            color: white; /* 글자 색상 */
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* 그림자 효과 강화 */
-            background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 추가 */
+            font-family: 'Roboto', sans-serif; /* Google Fonts에서 가져온 글꼴 사용 */
+            font-size: 2.5em; /* 글자 크기 조정 */
+            color: black; /* 글자 색상 */
+            font-weight: 700; /* 두께 설정 */
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); /* 흰색 그림자 추가 */
             padding: 10px; /* 여백 추가 */
             border-radius: 8px; /* 모서리 둥글게 하기 */
+            background-color: rgba(255, 255, 255, 0.7); /* 반투명 흰색 배경 추가 */
         }
     </style>
 </head>
@@ -45,7 +36,7 @@
     <div id="letter"></div>
     
     <script>
-        const letter = "w재훈스버전"; // 표시할 텍스트
+        const letter = "재훈스버전"; // 표시할 텍스트
         const letterDiv = document.getElementById('letter');
 
         let index = 0;
