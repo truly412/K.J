@@ -27,20 +27,34 @@
     <div id="letter"></div>
     
     <script>
-        const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // Your text here
-        const letterDiv = document.getElementById('letter');
+    const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // Your text here
+    const letterDiv = document.getElementById('letter');
 
-        let index = 0;
+    let index = 0;
 
-        function displayNextCharacter() {
-            if (index < letter.length) {
-                letterDiv.innerHTML += letter[index]; // Append the next character
-                index++;
-                setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
-            }
+    function createCharacterElement(char) {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.opacity = 0; // Start with an opacity of 0
+        letterDiv.appendChild(span);
+
+        // Animate the opacity to 1
+        setTimeout(() => {
+            span.style.transition = 'opacity 0.5s ease'; // Transition effect
+            span.style.opacity = 1; // Fade in the character
+        }, 10); // Short delay to ensure the transition takes effect
+    }
+
+    function displayNextCharacter() {
+        if (index < letter.length) {
+            createCharacterElement(letter[index]); // Create and display character
+            index++;
+            setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
         }
+    }
 
-        displayNextCharacter(); // Start displaying characters
-    </script>
+    displayNextCharacter(); // Start displaying characters
+</script>
+
 </body>
 </html>
