@@ -8,19 +8,42 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* 추가된 CSS 스타일 */
-        .marquee {
-            font-size: 20px;
-            color: #007BFF; /* 텍스트 색상 */
-            white-space: nowrap;
-            overflow: hidden;
-            width: 100%;
-            position: relative;
+        body {
+            font-family: 'Arial', sans-serif; /* 기본 글꼴 설정 */
+            background-color: #f8f9fa; /* 부드러운 배경색 */
+            color: #343a40; /* 텍스트 색상 */
+            text-align: center; /* 중앙 정렬 */
         }
 
-        /* 히든 이벤트 메시지를 보여줄 영역 스타일 */
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            max-width: 600px; /* 최대 너비 설정 */
+        }
+
         #hidden-event-message {
             font-size: 24px;
             margin-top: 20px;
+            font-weight: bold; /* 굵은 글꼴 */
+            color: #007BFF; /* 텍스트 색상 */
+            opacity: 0; /* 초기 투명도 */
+            transition: opacity 0.5s ease; /* 부드러운 전환 효과 */
+        }
+
+        /* 글자 애니메이션을 위한 스타일 */
+        .letter {
+            display: inline-block; /* 각 글자가 개별적으로 표시되도록 설정 */
+            transform: translateY(20px); /* 초기 위치 조정 */
+            opacity: 0; /* 초기 투명도 */
+            transition: transform 0.4s ease, opacity 0.4s ease; /* 부드러운 전환 효과 */
+        }
+
+        .letter.show {
+            transform: translateY(0); /* 제자리로 돌아오기 */
+            opacity: 1; /* 완전 불투명 */
         }
     </style>
 </head>
@@ -82,16 +105,24 @@
             const messageContainer = document.getElementById('hidden-event-message');
             messageContainer.textContent = ''; // 초기화
 
-            let index = 0; // 인덱스 초기화
-            const interval = setInterval(() => {
-                if (index < message.length) {
-                    messageContainer.textContent += message[index]; // 한 글자 추가
-                    index++;
-                } else {
-                    clearInterval(interval); // 모든 글자가 추가되면 인터벌 중지
-                    confirmProceed(); // 확인 창 띄우기
-                }
-            }, 300); // 글자 추가 속도 (300ms)
+            // 메시지의 각 글자를 span 요소로 추가
+            for (let char of message) {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'letter'; // letter 클래스 추가
+                messageContainer.appendChild(span); // 메시지 컨테이너에 추가
+            }
+
+            // 글자를 순차적으로 보여주는 애니메이션
+            const letters = document.querySelectorAll('.letter');
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    letter.classList.add('show'); // show 클래스 추가로 애니메이션 시작
+                }, index * 100); // 각 글자마다 100ms 딜레이
+            });
+
+            // 모든 글자가 나타난 후 확인 창 띄우기
+            setTimeout(confirmProceed, message.length * 100 + 500); // 마지막 글자 후에 추가 딜레이
         }
 
         // 확인 창을 띄우는 함수
@@ -103,8 +134,4 @@
                 alert("이벤트가 취소되었습니다.");
             }
         }
-    </script>
-
-</body>
-
-</html>
+    </scrip
