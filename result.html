@@ -110,6 +110,14 @@
             display: block; /* 블록 형태로 표시 */
             transform: translateY(10px); /* 약간 아래로 이동 */
         }
+
+        /* 이미지 스타일 */
+        #hidden-image {
+            display: none; /* 초기에는 숨김 */
+            margin-top: 20px; /* 위쪽 여백 추가 */
+            max-width: 100%; /* 반응형 이미지 */
+            border-radius: 8px; /* 모서리 둥글게 */
+        }
     </style>
 </head>
 
@@ -121,7 +129,7 @@
 
         <!-- 새로운 div 추가 -->
         <div id="hidden-event-message"></div>
-        
+
         <!-- 이벤트 질문을 감싸는 div -->
         <div class="event-question" id="event-question">
             이벤트를 실행하시겠습니까?
@@ -131,6 +139,9 @@
             <button class="yes" id="yes-btn">YES</button>
             <button class="no" id="no-btn">NO</button>
         </div>
+
+        <!-- 이미지를 추가할 div -->
+        <img id="hidden-image" src="your-image-url.jpg" alt="Hidden Image" />
     </div>
 
     <script>
@@ -211,15 +222,28 @@
             }, (formattedMessage.length + 1) * 100); // 마지막 글자 후에 추가 딜레이
         }
 
-        // 예 버튼 클릭 이벤트
-        document.getElementById('yes-btn').addEventListener('click', function() {
-            alert("이벤트가 진행됩니다.");
-            // 여기서 이벤트 관련 코드를 추가하세요
-        });
+        // NO 버튼 클릭 횟수 추적
+        let noCount = 0;
 
         // 아니오 버튼 클릭 이벤트
-        document.getElementById('no-btn').addEventListener('click', function() {
-            alert("이벤트가 취소되었습니다.");
+        document.getElementById('no-btn').addEventListener('click', function () {
+            noCount++; // 클릭 횟수 증가
+            if (noCount === 10) {
+                alert("NO 버튼을 10번 누르셨습니다.");
+            } else if (noCount === 20) {
+                alert("NO 버튼을 20번 누르셨습니다.");
+            } else if (noCount === 30) {
+                alert("NO 버튼을 30번 누르셨습니다.");
+            } else if (noCount > 30 && noCount % 30 === 0) {
+                // 30회 초과 시 이미지 표시
+                document.getElementById('hidden-image').style.display = 'block';
+            }
+        });
+
+        // 예 버튼 클릭 이벤트
+        document.getElementById('yes-btn').addEventListener('click', function () {
+            alert("이벤트가 진행됩니다.");
+            // 여기서 이벤트 관련 코드를 추가하세요
         });
     </script>
 </body>
