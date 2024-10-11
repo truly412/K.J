@@ -26,8 +26,8 @@
 <body>
     <div id="letter"></div>
     
-    <script>
-    const letter = "안녕하세요! 여기에 보여줄 문장입니다.2"; // Your text here
+<script>
+    const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // 보여줄 문장
     const letterDiv = document.getElementById('letter');
 
     let index = 0;
@@ -35,26 +35,29 @@
     function createCharacterElement(char) {
         const span = document.createElement('span');
         span.textContent = char;
-        span.style.opacity = 0; // Start with an opacity of 0
+        span.style.opacity = 0; // 초기 투명도를 0으로 설정
+        span.style.transform = 'scale(0.5)'; // 초기 크기를 0.5로 설정
         letterDiv.appendChild(span);
 
-        // Animate the opacity to 1
+        // 투명도와 크기를 애니메이션
         setTimeout(() => {
-            span.style.transition = 'opacity 0.5s ease'; // Transition effect
-            span.style.opacity = 1; // Fade in the character
-        }, 10); // Short delay to ensure the transition takes effect
+            span.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; // 전환 효과
+            span.style.opacity = 1; // 문자를 서서히 나타나게 함
+            span.style.transform = 'scale(1)'; // 문자가 원래 크기로 확대됨
+        }, 10); // 짧은 지연 후 전환 적용
     }
 
     function displayNextCharacter() {
         if (index < letter.length) {
-            createCharacterElement(letter[index]); // Create and display character
+            createCharacterElement(letter[index]); // 문자 생성 및 표시
             index++;
-            setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
+            setTimeout(displayNextCharacter, 200); // 다음 문자 표시 전 200ms 대기
         }
     }
 
-    displayNextCharacter(); // Start displaying characters
+    displayNextCharacter(); // 문자 표시 시작
 </script>
+
 
 </body>
 </html>
