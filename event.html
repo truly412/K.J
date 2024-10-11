@@ -7,7 +7,7 @@
     <title>Event Page</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* 추가된 CSS 스타일 */
+        /* 기본 CSS 스타일 */
         body {
             font-family: 'Arial', sans-serif; /* 기본 글꼴 설정 */
             background-color: #f8f9fa; /* 부드러운 배경색 */
@@ -24,6 +24,11 @@
             max-width: 600px; /* 최대 너비 설정 */
         }
 
+        #answers {
+            text-align: left; /* 왼쪽 정렬 */
+            margin-top: 20px; /* 위쪽 여백 추가 */
+        }
+
         #hidden-event-message {
             font-size: 24px;
             margin-top: 20px;
@@ -31,6 +36,20 @@
             color: #007BFF; /* 텍스트 색상 */
             opacity: 0; /* 초기 투명도 */
             transition: opacity 0.5s ease; /* 부드러운 전환 효과 */
+        }
+
+        /* 질문 스타일 */
+        .question {
+            font-weight: bold; /* 질문을 굵게 */
+            font-size: 18px; /* 질문 크기 조정 */
+            margin-bottom: 5px; /* 질문과 답변 간의 여백 */
+        }
+
+        /* 답변 스타일 */
+        .answer {
+            font-size: 16px; /* 답변 크기 조정 */
+            color: #495057; /* 답변 색상 */
+            margin-bottom: 15px; /* 각 답변 간의 여백 */
         }
 
         /* 글자 애니메이션을 위한 스타일 */
@@ -44,10 +63,6 @@
         .letter.show {
             transform: translateY(0); /* 제자리로 돌아오기 */
             opacity: 1; /* 완전 불투명 */
-        }
-
-        #answers p {
-            text-align: left; /* 왼쪽 정렬 */
         }
     </style>
 </head>
@@ -72,9 +87,12 @@
 
             // 각 질문에 대한 답변을 보여줌
             const answerText = `
-                <p>Q1: 주기적으로 새로운 친구를 사귄다 - ${getAnswerText(answers.q1)}</p>
-                <p>Q2: 단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다 - ${getAnswerText(answers.q2)}</p>
-                <p>Q3: 일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다 - ${getAnswerText(answers.q3)}</p>
+                <div class="question">Q1: 주기적으로 새로운 친구를 사귄다</div>
+                <div class="answer">A: ${getAnswerText(answers.q1)}</div>
+                <div class="question">Q2: 단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다</div>
+                <div class="answer">A: ${getAnswerText(answers.q2)}</div>
+                <div class="question">Q3: 일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다</div>
+                <div class="answer">A: ${getAnswerText(answers.q3)}</div>
             `;
             answerDisplay.innerHTML = answerText;
 
@@ -91,7 +109,7 @@
                 case '4': return '강지가 너무 좋다';
                 case '3': return '강지가 그렇다';
                 case '2': return '강지가 그저 그렇다';
-                case '1': return '도대체 강지를 왜 만나는지 모르겠다.';
+                case '1': return '도대체 강지를 왜 만나는지 모르겠다';
                 default: return '선택하지 않음';
             }
         }
