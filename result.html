@@ -118,8 +118,8 @@
         </div>
 
         <!-- 이미지 추가 -->
-        <img id="angry-image" src="embarrassed.PNG" alt="Angry Image">
-        <img id="angry-image-20" src="angry.PNG" alt="Embarrassed Image">
+        <img id="angry-image" src="angry.PNG" alt="Angry Image">
+        <img id="angry-image-20" src="embarrassed.PNG" alt="Embarrassed Image">
     </div>
 
     <script>
@@ -204,11 +204,13 @@
             // 10번 눌렸을 때
             if (noButtonClickCount === 10) {
                 document.getElementById('angry-image').style.display = 'block'; // 첫 번째 이미지 표시
-            }
-
-            // 20번 눌렸을 때
-            if (noButtonClickCount === 20) {
+                document.getElementById('angry-image-20').style.display = 'none'; // 두 번째 이미지 숨김
+            } else if (noButtonClickCount === 20) { // 20번 눌렸을 때
                 document.getElementById('angry-image-20').style.display = 'block'; // 두 번째 이미지 표시
+                document.getElementById('angry-image').style.display = 'none'; // 첫 번째 이미지 숨김
+            } else if (noButtonClickCount < 10) { // 10 이하일 때
+                document.getElementById('angry-image').style.display = 'none'; // 첫 번째 이미지 숨김
+                document.getElementById('angry-image-20').style.display = 'none'; // 두 번째 이미지 숨김
             }
         });
     </script>
