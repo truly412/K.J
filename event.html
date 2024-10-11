@@ -9,20 +9,18 @@
     <style>
         /* 추가된 CSS 스타일 */
         .marquee {
+            font-size: 20px;
+            color: #007BFF; /* 텍스트 색상 */
             white-space: nowrap;
             overflow: hidden;
-            width: 100%; /* 너비 100%로 설정 */
-            position: relative; /* position 설정 */
-            animation: marquee 10s linear infinite; /* 애니메이션 추가 */
+            width: 100%;
+            position: relative;
         }
 
-        @keyframes marquee {
-            0% {
-                transform: translateX(100%); /* 시작 위치: 오른쪽 끝 */
-            }
-            100% {
-                transform: translateX(-100%); /* 끝 위치: 왼쪽 끝 */
-            }
+        /* 히든 이벤트 메시지를 보여줄 영역 스타일 */
+        #hidden-event-message {
+            font-size: 24px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -34,9 +32,7 @@
         <div id="answers"></div> <!-- 답변을 표시할 영역 -->
 
         <!-- 새로운 div 추가 -->
-        <div class="marquee">
-            합산점수 10을 넘었음으로 히든 이벤트가 발생합니다
-        </div>
+        <div id="hidden-event-message"></div>
     </div>
 
     <script>
@@ -45,7 +41,7 @@
 
         if (answers) {
             const answerDisplay = document.getElementById('answers');
-            
+
             // 각 질문에 대한 답변을 보여줌
             const answerText = `
                 <p>Q1: 당신은 김치입니까? - ${getAnswerText(answers.q1)}</p>
@@ -56,13 +52,8 @@
 
             // 확인 창 표시
             if (calculateTotalScore(answers) > 10) {
-                const confirmProceed = confirm("이벤트를 진행 하시겠습니까?");
-                if (confirmProceed) {
-                    // 사용자 확인 후 진행할 작업을 여기에 추가
-                    alert("이벤트가 진행됩니다.");
-                } else {
-                    alert("이벤트가 취소되었습니다.");
-                }
+                // 메시지를 한 글자씩 표시하는 함수 호출
+                showMessage("합산점수 10을 넘었음으로 히든 이벤트가 발생합니다");
             }
         }
 
@@ -84,6 +75,33 @@
                 totalScore += parseInt(answers[key]); // 선택한 값들을 합산
             }
             return totalScore;
+        }
+
+        // 메시지를 한 글자씩 출력하는 함수
+        function showMessage(message) {
+            const messageContainer = document.getElementById('hidden-event-message');
+            messageContainer.textContent = ''; // 초기화
+
+            let index = 0; // 인덱스 초기화
+            const interval = setInterval(() => {
+                if (index < message.length) {
+                    messageContainer.textContent += message[index]; // 한 글자 추가
+                    index++;
+                } else {
+                    clearInterval(interval); // 모든 글자가 추가되면 인터벌 중지
+                    confirmProceed(); // 확인 창 띄우기
+                }
+            }, 300); // 글자 추가 속도 (300ms)
+        }
+
+        // 확인 창을 띄우는 함수
+        function confirmProceed() {
+            const confirmProceed = confirm("이벤트를 진행 하시겠습니까?");
+            if (confirmProceed) {
+                alert("이벤트가 진행됩니다.");
+            } else {
+                alert("이벤트가 취소되었습니다.");
+            }
         }
     </script>
 
