@@ -2,112 +2,111 @@
 <html lang="ko">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Questionnaire</title>
-<link rel="stylesheet" href="/assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body>
 
-<div class="container">
-<div id="div1" class="question">
-주기적으로 새로운 친구를 사귄다.
-</div>
+    <div class="container">
+        <div id="div1" class="question">
+            주기적으로 새로운 친구를 사귄다.
+        </div>
 
-<div id="div2" class="options">
-<label>
-<input type="radio" name="answer" value="4"> 강지가 너무 좋다.
-</label>
-<label>
-<input type="radio" name="answer" value="3"> 강지가 좋다.
-</label>
-<label>
-<input type="radio" name="answer" value="2"> 강지가 그저 그렇다.
-</label>
-<label>
-<input type="radio" name="answer" value="1" disabled> 도대체 강지를 왜 만나는지 모르겠다.
-</label>
-</div>
+        <div id="div2" class="options">
+            <label>
+                <input type="radio" name="answer" value="4"> 강지가 너무 좋다.
+            </label>
+            <label>
+                <input type="radio" name="answer" value="3"> 강지가 좋다.
+            </label>
+            <label>
+                <input type="radio" name="answer" value="2"> 강지가 그저 그렇다.
+            </label>
+            <label>
+                <input type="radio" name="answer" value="1" disabled> 도대체 강지를 왜 만나는지 모르겠다.
+            </label>
+        </div>
 
-<div id="div3" class="buttons">
-<button id="prev-btn" disabled>Prev</button>
-<button id="next-btn">Next</button>
-</div>
-</div>
+        <div id="div3" class="buttons">
+            <button id="prev-btn" disabled>Prev</button>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
 
-<script>
-// 현재 질문 번호 및 답변을 저장할 객체
-let currentQuestion = 1;
-let answers = {};
+    <script>
+        // 현재 질문 번호 및 답변을 저장할 객체
+        let currentQuestion = 1;
+        let answers = {};
 
-// Next 버튼 클릭 이벤트
-document.getElementById('next-btn').addEventListener('click', function () {
-// 선택한 라디오 값 가져오기
-let selectedValue = document.querySelector('input[name="answer"]:checked');
+        // Next 버튼 클릭 이벤트
+        document.getElementById('next-btn').addEventListener('click', function () {
+            // 선택한 라디오 값 가져오기
+            let selectedValue = document.querySelector('input[name="answer"]:checked');
 
-if (!selectedValue) {
-alert('먼저 답을 선택해 주세요.');
-return;
-}
+            if (!selectedValue) {
+                alert('먼저 답을 선택해 주세요.');
+                return;
+            }
 
             if (selectedValue.value === "3") {
-            if (selectedValue.value === "2") {
-alert('힝..');
-}
+                alert('힝..');
+            }
+            
 
+            // 답변 저장
+            answers[`q${currentQuestion}`] = selectedValue.value;
 
-// 답변 저장
-answers[`q${currentQuestion}`] = selectedValue.value;
+            // 첫 번째 질문에서 두 번째 질문으로 이동
+            if (currentQuestion === 1) {
+                document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
+                document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
+                currentQuestion++;
+                document.getElementById('prev-btn').disabled = false;
 
-// 첫 번째 질문에서 두 번째 질문으로 이동
-if (currentQuestion === 1) {
-document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
-document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
-currentQuestion++;
-document.getElementById('prev-btn').disabled = false;
+            // 두 번째 질문에서 세 번째 질문으로 이동
+            } else if (currentQuestion === 2) {
+                document.getElementById('div1').textContent = '일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다.';
+                document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
+                currentQuestion++;
 
-// 두 번째 질문에서 세 번째 질문으로 이동
-} else if (currentQuestion === 2) {
-document.getElementById('div1').textContent = '일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다.';
-document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
-currentQuestion++;
+            // 세 번째 질문 이후 event.html로 이동 및 답변 저장
+            } else if (currentQuestion === 3) {
+                console.log(answers); // 답변 출력 (디버깅 용도)
+                
+                // 답변을 localStorage에 저장
+                localStorage.setItem('answers', JSON.stringify(answers));
 
-// 세 번째 질문 이후 event.html로 이동 및 답변 저장
-} else if (currentQuestion === 3) {
-console.log(answers); // 답변 출력 (디버깅 용도)
+                // event.html로 이동
+                window.location.href = '/html/yeri/result.html';
+            }
+        });
 
-// 답변을 localStorage에 저장
-localStorage.setItem('answers', JSON.stringify(answers));
+        // Prev 버튼 클릭 이벤트
+        document.getElementById('prev-btn').addEventListener('click', function () {
+            if (currentQuestion === 2) {
+                // 첫 번째 질문으로 돌아가기
+                document.getElementById('div1').textContent = '주기적으로 새로운 친구를 사귄다.';
+                let previousAnswer = answers['q1'];
+                if (previousAnswer) {
+                    document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
+                }
+                currentQuestion--;
+                document.getElementById('prev-btn').disabled = true;
 
-// event.html로 이동
-window.location.href = '/html/yeri/result.html';
-}
-});
-
-// Prev 버튼 클릭 이벤트
-document.getElementById('prev-btn').addEventListener('click', function () {
-if (currentQuestion === 2) {
-// 첫 번째 질문으로 돌아가기
-document.getElementById('div1').textContent = '주기적으로 새로운 친구를 사귄다.';
-let previousAnswer = answers['q1'];
-if (previousAnswer) {
-document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
-}
-currentQuestion--;
-document.getElementById('prev-btn').disabled = true;
-
-} else if (currentQuestion === 3) {
-// 두 번째 질문으로 돌아가기
-document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
-let previousAnswer = answers['q2'];
-if (previousAnswer) {
-document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
-}
-currentQuestion--;
-}
-});
-</script>
+            } else if (currentQuestion === 3) {
+                // 두 번째 질문으로 돌아가기
+                document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
+                let previousAnswer = answers['q2'];
+                if (previousAnswer) {
+                    document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
+                }
+                currentQuestion--;
+            }
+        });
+    </script>
 
 </body>
 
