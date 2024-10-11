@@ -1,34 +1,27 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Letter Display</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Google Fonts -->
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url('letter5.jpg'); /* 배경 이미지 */
-            background-size: contain; /* 배경 이미지를 화면에 맞춰 조정 */
-            background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
-            background-position: center; /* 중앙에 위치 */
-            height: 100vh; /* 전체 뷰포트 높이 */
-            width: 100vw; /* 전체 뷰포트 너비 */
+            background-image: url('letter5.jpg'); /* Background image */
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent background image from repeating */
+            height: 100vh; /* Full viewport height */
+            width: 100vw; /* Full viewport width */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         #letter {
-            font-family: 'Roboto', sans-serif; /* Google Fonts에서 가져온 글꼴 사용 */
-            font-size: 2.5em; /* 글자 크기 조정 */
-            color: black; /* 글자 색상 */
-            font-weight: 700; /* 두께 설정 */
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); /* 흰색 그림자 추가 */
-            padding: 10px; /* 여백 추가 */
-            border-radius: 8px; /* 모서리 둥글게 하기 */
-            background-color: rgba(255, 255, 255, 0.7); /* 반투명 흰색 배경 추가 */
+            font-size: 2em; /* Adjust font size as needed */
+            color: white; /* Text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: adds shadow for better visibility */
         }
     </style>
 </head>
@@ -36,20 +29,20 @@
     <div id="letter"></div>
     
     <script>
-        const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // 표시할 텍스트
+        const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // Your text here
         const letterDiv = document.getElementById('letter');
 
         let index = 0;
 
         function displayNextCharacter() {
             if (index < letter.length) {
-                letterDiv.innerHTML += letter[index]; // 다음 문자를 추가
+                letterDiv.innerHTML += letter[index]; // Append the next character
                 index++;
-                setTimeout(displayNextCharacter, 200); // 다음 문자를 표시하기 전에 200ms 대기
+                setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
             }
         }
 
-        displayNextCharacter(); // 문자 표시 시작
+        displayNextCharacter(); // Start displaying characters
     </script>
 </body>
 </html>
