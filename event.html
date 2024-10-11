@@ -1,1 +1,96 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초대장</title>
+    <style>
+        /* 기본 CSS 스타일 */
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f5f5f5;
+            color: #4a4a4a;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .invitation-container {
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .invitation-container::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-20px);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            color: #c04000;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+            margin: 20px 0;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #7a7a7a;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invitation-container">
+        <h1>초대합니다!</h1>
+        <p id="propose-text"></p>
+        <div class="footer">당신의 특별한 날에 함께해 주세요.</div>
+    </div>
+
+    <script>
+        const proposeText = "당신을 위한 특별한 초대입니다. 우리의 기쁜 날에 함께 하시길 바랍니다.";
+        document.getElementById('propose-text').textContent = proposeText;
+    </script>
+</body>
+
+</html>
