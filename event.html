@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letter Display</title>
+    <title>Background Image Example</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             background-image: url('letter4.PNG'); /* 배경 이미지 */
-            background-size: 80% auto; /* 원래 크기 유지 */
-            background-repeat: no-repeat; /* 이미지를 반복하여 채움 */
+            background-size: 80% auto; /* 너비를 80%로, 높이는 자동 */
+            background-repeat: no-repeat; /* 이미지 반복 안함 */
             background-position: center; /* 중앙 정렬 */
             height: 100vh; /* 전체 화면 높이 */
             display: flex;
@@ -19,48 +19,13 @@
         }
 
         #letter {
-            font-size: 2em; /* Adjust font size as needed */
-            color: white; /* Text color */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: adds shadow for better visibility */
-            padding: 20px; /* 여백 추가 */
+            font-size: 2em; /* 글자 크기 조정 */
+            color: white; /* 글자 색상 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 가독성을 위한 그림자 효과 */
         }
     </style>
 </head>
 <body>
-    <div id="letter"></div>
-    
-<script>
-    const letter = "안녕하세요! 여기에 보여줄 문장입니다.6"; // 보여줄 문장
-    const letterDiv = document.getElementById('letter');
-
-    let index = 0;
-
-    function createCharacterElement(char) {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.style.opacity = 0; // 초기 투명도를 0으로 설정
-        span.style.transform = 'scale(0.5)'; // 초기 크기를 0.5로 설정
-        letterDiv.appendChild(span);
-
-        // 투명도와 크기를 애니메이션
-        setTimeout(() => {
-            span.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; // 전환 효과
-            span.style.opacity = 1; // 문자를 서서히 나타나게 함
-            span.style.transform = 'scale(1)'; // 문자가 원래 크기로 확대됨
-        }, 10); // 짧은 지연 후 전환 적용
-    }
-
-    function displayNextCharacter() {
-        if (index < letter.length) {
-            createCharacterElement(letter[index]); // 문자 생성 및 표시
-            index++;
-            setTimeout(displayNextCharacter, 200); // 다음 문자 표시 전 200ms 대기
-        }
-    }
-
-    displayNextCharacter(); // 문자 표시 시작
-</script>
-
-
+    <div id="letter">안녕하세요! 여기에 보여줄 문장입니다.</div>
 </body>
 </html>
