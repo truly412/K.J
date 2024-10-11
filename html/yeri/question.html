@@ -46,6 +46,10 @@
             // 선택한 라디오 값 가져오기
             let selectedValue = document.querySelector('input[name="answer"]:checked');
 
+            if(selectedValue === '3') {
+                alert('^^;');
+            }
+
             if (!selectedValue) {
                 alert('먼저 답을 선택해 주세요.');
                 return;
