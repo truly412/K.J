@@ -1,3 +1,3 @@
 document.getElementById('goToMain').addEventListener('click', function() {
-    window.location.href = 'q1.html';
+    window.location.href = 'question.html';
 });
