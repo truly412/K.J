@@ -6,6 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Page</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 추가된 CSS 스타일 */
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%; /* 너비 100%로 설정 */
+            position: relative; /* position 설정 */
+            animation: marquee 10s linear infinite; /* 애니메이션 추가 */
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%); /* 시작 위치: 오른쪽 끝 */
+            }
+            100% {
+                transform: translateX(-100%); /* 끝 위치: 왼쪽 끝 */
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -13,6 +32,11 @@
     <div class="container">
         <h1>당신의 선택</h1>
         <div id="answers"></div> <!-- 답변을 표시할 영역 -->
+
+        <!-- 새로운 div 추가 -->
+        <div class="marquee">
+            합산점수 10을 넘었음으로 히든 이벤트가 발생합니다
+        </div>
     </div>
 
     <script>
@@ -29,6 +53,17 @@
                 <p>Q3: 당신은 여자입니까? - ${getAnswerText(answers.q3)}</p>
             `;
             answerDisplay.innerHTML = answerText;
+
+            // 확인 창 표시
+            if (calculateTotalScore(answers) > 10) {
+                const confirmProceed = confirm("이벤트를 진행 하시겠습니까?");
+                if (confirmProceed) {
+                    // 사용자 확인 후 진행할 작업을 여기에 추가
+                    alert("이벤트가 진행됩니다.");
+                } else {
+                    alert("이벤트가 취소되었습니다.");
+                }
+            }
         }
 
         // 선택한 값에 맞는 텍스트로 변환
@@ -40,6 +75,15 @@
                 case '4': return '매우 아니다';
                 default: return '선택하지 않음';
             }
+        }
+
+        // 합산 점수를 계산하는 함수
+        function calculateTotalScore(answers) {
+            let totalScore = 0;
+            for (let key in answers) {
+                totalScore += parseInt(answers[key]); // 선택한 값들을 합산
+            }
+            return totalScore;
         }
     </script>
 
