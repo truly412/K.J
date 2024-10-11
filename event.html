@@ -111,8 +111,8 @@
             messageContainer.textContent = ''; // 초기화
             messageContainer.style.opacity = 1; // 초기 투명도 설정
 
-            // 띄어쓰기를 추가한 메시지
-            const formattedMessage = message.split('').join(' '); // 각 글자 사이에 띄어쓰기 추가
+            // 메시지를 공백 포함하여 처리
+            const formattedMessage = message.split('').map(char => char === ' ' ? '\u00A0' : char).join(''); 
 
             // 메시지의 각 글자를 span 요소로 추가
             for (let char of formattedMessage) {
