@@ -37,78 +37,62 @@
     </div>
 
     <script>
-        // Script to handle the question and radio value storage
-        let currentQuestion = 1; // To track which question is being asked
-        let answers = {}; // Object to store the answers (e.g., q1:3)
+        // 현재 질문 번호 및 답변을 저장할 객체
+        let currentQuestion = 1;
+        let answers = {};
 
+        // Next 버튼 클릭 이벤트
         document.getElementById('next-btn').addEventListener('click', function () {
-            // Get the selected radio value
+            // 선택한 라디오 값 가져오기
             let selectedValue = document.querySelector('input[name="answer"]:checked');
 
             if (!selectedValue) {
                 alert('먼저 답을 선택해 주세요.');
-                return; // Exit if no option is selected
+                return;
             }
 
-            // Store the answer in the "answers" object
+            // 답변 저장
             answers[`q${currentQuestion}`] = selectedValue.value;
 
+            // 첫 번째 질문에서 두 번째 질문으로 이동
             if (currentQuestion === 1) {
-                // Move to the second question
                 document.getElementById('div1').textContent = '당신은 배고픕니까?';
-
-                // Reset radio buttons (uncheck all)
                 document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
-
-                // Increment the question counter
                 currentQuestion++;
-
-                // Enable the Prev button
                 document.getElementById('prev-btn').disabled = false;
 
+            // 두 번째 질문에서 세 번째 질문으로 이동
             } else if (currentQuestion === 2) {
-                // Move to the third question
                 document.getElementById('div1').textContent = '당신은 여자입니까?';
-
-                // Reset radio buttons
                 document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
-
-                // Increment the question counter
                 currentQuestion++;
-            }
 
-            console.log(answers); // For debugging, to see the stored values in the console
+            // 세 번째 질문 이후 event.html로 이동
+            } else if (currentQuestion === 3) {
+                console.log(answers); // 답변 출력 (디버깅 용도)
+                window.location.href = 'event.html'; // event.html로 이동
+            }
         });
 
-        // Add event listener to the Prev button
+        // Prev 버튼 클릭 이벤트
         document.getElementById('prev-btn').addEventListener('click', function () {
             if (currentQuestion === 2) {
-                // Revert to the first question
+                // 첫 번째 질문으로 돌아가기
                 document.getElementById('div1').textContent = '당신은 김치입니까?';
-
-                // Restore the previous answer if exists
                 let previousAnswer = answers['q1'];
                 if (previousAnswer) {
                     document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
                 }
-
-                // Decrement the question counter
                 currentQuestion--;
-
-                // Disable the Prev button again
                 document.getElementById('prev-btn').disabled = true;
 
             } else if (currentQuestion === 3) {
-                // Revert to the second question
+                // 두 번째 질문으로 돌아가기
                 document.getElementById('div1').textContent = '당신은 배고픕니까?';
-
-                // Restore the previous answer if exists
                 let previousAnswer = answers['q2'];
                 if (previousAnswer) {
                     document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
                 }
-
-                // Decrement the question counter
                 currentQuestion--;
             }
         });
