@@ -103,8 +103,8 @@
         <!-- 새로운 div 추가 -->
         <div id="hidden-event-message"></div>
         <div class="button-container" id="button-container">
-            <button class="yes" id="yes-btn">YES</button>
-            <button class="no" id="no-btn">NO</button>
+            <button class="yes" id="yes-btn">예</button>
+            <button class="no" id="no-btn">아니오</button>
         </div>
     </div>
 
@@ -130,7 +130,7 @@
             // 확인 창 표시
             if (calculateTotalScore(answers) > 10) {
                 // 메시지를 한 글자씩 표시하는 함수 호출
-                showMessage("합산 점수 10을 넘었음으로 히든 이벤트가 발생합니다. 이벤트를 진행하시겠습니까?");
+                showMessage("합산 점수 10을 넘었음으로 히든 이벤트가 발생합니다.");
             }
         }
 
@@ -155,22 +155,13 @@
         }
 
         // 메시지를 한 글자씩 출력하는 함수
-        // 메시지를 한 글자씩 출력하는 함수
-function showMessage() {
-    const message = "합산 점수 10을 넘었음으로 히든 이벤트가 발생합니다.\n이벤트를 진행하시겠습니까?";
-    const messageContainer = document.getElementById('hidden-event-message');
-    messageContainer.textContent = ''; // 초기화
-    messageContainer.style.opacity = 1; // 초기 투명도 설정
+        function showMessage(message) {
+            const messageContainer = document.getElementById('hidden-event-message');
+            messageContainer.textContent = ''; // 초기화
+            messageContainer.style.opacity = 1; // 초기 투명도 설정
 
-    // 메시지를 줄바꿈 문자 기준으로 분리
-    const messageLines = message.split('\n');
-
-    // 각 줄마다 글자를 표시
-    let currentLine = 0;
-
-    const displayLine = () => {
-        if (currentLine < messageLines.length) {
-            const formattedMessage = messageLines[currentLine].split('').map(char => char === ' ' ? '\u00A0' : char).join('');
+            // 메시지를 공백 포함하여 처리
+            const formattedMessage = message.split('').map(char => char === ' ' ? '\u00A0' : char).join(''); 
 
             // 메시지의 각 글자를 span 요소로 추가
             for (let char of formattedMessage) {
@@ -181,28 +172,18 @@ function showMessage() {
             }
 
             // 글자를 순차적으로 보여주는 애니메이션
-            const letters = messageContainer.querySelectorAll('.letter');
+            const letters = document.querySelectorAll('.letter');
             letters.forEach((letter, index) => {
                 setTimeout(() => {
                     letter.classList.add('show'); // show 클래스 추가로 애니메이션 시작
                 }, index * 100); // 각 글자마다 100ms 딜레이
             });
 
-            // 모든 글자가 나타난 후 다음 줄을 보여줍니다.
+            // 모든 글자가 나타난 후 버튼 표시
             setTimeout(() => {
-                currentLine++;
-                messageContainer.appendChild(document.createElement('br')); // 줄바꿈 추가
-                displayLine(); // 다음 줄 표시
+                document.getElementById('button-container').style.display = 'block'; // 버튼 표시
             }, (formattedMessage.length + 1) * 100); // 마지막 글자 후에 추가 딜레이
-        } else {
-            // 마지막 줄이 끝난 후 버튼을 보여줍니다.
-            setTimeout(showButtons, 500); // 버튼 보이기
         }
-    };
-
-    displayLine(); // 첫 번째 줄 표시 시작
-}
-
 
         // 예 버튼 클릭 이벤트
         document.getElementById('yes-btn').addEventListener('click', function() {
