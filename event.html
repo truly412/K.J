@@ -1,48 +1,46 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.3.1/dist/aos.css">
-    <title>편지</title>
+    <title>Letter Display</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
+            background-image: url('letter5.jpg'); /* Background image */
+            background-size: cover; /* Cover the entire background */
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .letter {
-            background-image: url('letter.jpg'); /* 배경 이미지 설정 */
-            background-size: cover; /* 배경 이미지가 div를 덮도록 설정 */
-            background-position: center; /* 배경 이미지의 중앙 정렬 */
-            color: white; /* 글자 색상 */
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            max-width: 600px; /* 편지의 최대 너비 */
-            margin: 100px auto; /* 중앙 정렬 */
-            text-align: center; /* 텍스트 중앙 정렬 */
-            font-family: 'Arial', sans-serif; /* 글꼴 설정 */
-            opacity: 0.9; /* 투명도 설정 */
+
+        #letter {
+            font-size: 2em; /* Adjust font size as needed */
+            color: white; /* Text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: adds shadow for better visibility */
         }
     </style>
 </head>
 <body>
-
-    <div class="letter" data-aos="fade-up">
-        <h1>사랑하는 친구에게</h1>
-        <p>안녕! 오랜만이야. 잘 지내고 있니?</p>
-        <p>이 편지를 통해 너에게 내 마음을 전하고 싶어.</p>
-        <p>언제나 너의 행복을 기원하고 있어.</p>
-        <p>곧 만날 날을 기다릴게!</p>
-        <p>사랑해,</p>
-        <p>친구가</p>
-    </div>
-
-    <script src="https://cdn.rawgit.com/michalsnik/aos/2.3.1/dist/aos.js"></script>
+    <div id="letter"></div>
+    
     <script>
-        AOS.init();
+        const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // Your text here
+        const letterDiv = document.getElementById('letter');
+
+        let index = 0;
+
+        function displayNextCharacter() {
+            if (index < letter.length) {
+                letterDiv.innerHTML += letter[index]; // Append the next character
+                index++;
+                setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
+            }
+        }
+
+        displayNextCharacter(); // Start displaying characters
     </script>
 </body>
 </html>
