@@ -94,10 +94,21 @@
 
         /* 이벤트 질문 스타일 */
         .event-question {
+            display: none; /* 초기에는 숨김 */
             font-size: 20px; /* 질문 크기 조정 */
             font-weight: bold; /* 질문을 굵게 */
             color: #343a40; /* 텍스트 색상 */
-            margin-top: 20px; /* 위쪽 여백 추가 */
+            background-color: #e9ecef; /* 부드러운 배경색 */
+            padding: 20px; /* 패딩 추가 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            margin-top: 20px; /* 상단 여백 추가 */
+            transition: transform 0.3s ease; /* 부드러운 전환 효과 */
+        }
+
+        .event-question.show {
+            display: block; /* 블록 형태로 표시 */
+            transform: translateY(10px); /* 약간 아래로 이동 */
         }
     </style>
 </head>
@@ -112,7 +123,7 @@
         <div id="hidden-event-message"></div>
         
         <!-- 이벤트 질문을 감싸는 div -->
-        <div class="event-question" id="event-question" style="display: none;">
+        <div class="event-question" id="event-question">
             이벤트를 실행하시겠습니까?
         </div>
 
@@ -193,9 +204,9 @@
                 }, index * 100); // 각 글자마다 100ms 딜레이
             });
 
-            // 모든 글자가 나타난 후 질문과 버튼 표시
+            // 모든 글자가 나타난 후 이벤트 질문과 버튼 표시
             setTimeout(() => {
-                document.getElementById('event-question').style.display = 'block'; // 이벤트 질문 표시
+                document.getElementById('event-question').classList.add('show'); // 이벤트 질문 표시
                 document.getElementById('button-container').style.display = 'block'; // 버튼 표시
             }, (formattedMessage.length + 1) * 100); // 마지막 글자 후에 추가 딜레이
         }
