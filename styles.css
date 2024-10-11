@@ -34,7 +34,12 @@ body {
     color: #333;
 }
 
-/* Options styling */
+/* Options styling - left-aligned radio buttons */
+.options {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
 .options label {
     display: block;
     font-size: 18px;
@@ -49,6 +54,7 @@ body {
 /* Button styling */
 .buttons {
     margin-top: 20px;
+    text-align: center;
 }
 
 button {
