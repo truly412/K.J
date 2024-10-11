@@ -12,21 +12,21 @@
 
     <div class="container">
         <div id="div1" class="question">
-            당신은 김치입니까?
+            주기적으로 새로운 친구를 사귄다.
         </div>
 
         <div id="div2" class="options">
             <label>
-                <input type="radio" name="answer" value="1"> 매우 그렇다
+                <input type="radio" name="answer" value="4"> 강지가 너무 좋다
             </label>
             <label>
-                <input type="radio" name="answer" value="2"> 그렇다
+                <input type="radio" name="answer" value="3"> 강지가 그렇다 
             </label>
             <label>
-                <input type="radio" name="answer" value="3"> 아니다
+                <input type="radio" name="answer" value="2"> 강지가 그저 그렇다
             </label>
             <label>
-                <input type="radio" name="answer" value="4"> 매우 아니다
+                <input type="radio" name="answer" value="1" disabled> 도대체 강지를 왜 만나는지 모르겠다.
             </label>
         </div>
 
@@ -56,14 +56,14 @@
 
             // 첫 번째 질문에서 두 번째 질문으로 이동
             if (currentQuestion === 1) {
-                document.getElementById('div1').textContent = '당신은 배고픕니까?';
+                document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
                 document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
                 currentQuestion++;
                 document.getElementById('prev-btn').disabled = false;
 
             // 두 번째 질문에서 세 번째 질문으로 이동
             } else if (currentQuestion === 2) {
-                document.getElementById('div1').textContent = '당신은 여자입니까?';
+                document.getElementById('div1').textContent = '일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다.';
                 document.querySelectorAll('input[name="answer"]').forEach(radio => radio.checked = false);
                 currentQuestion++;
 
@@ -83,7 +83,7 @@
         document.getElementById('prev-btn').addEventListener('click', function () {
             if (currentQuestion === 2) {
                 // 첫 번째 질문으로 돌아가기
-                document.getElementById('div1').textContent = '당신은 김치입니까?';
+                document.getElementById('div1').textContent = '주기적으로 새로운 친구를 사귄다.';
                 let previousAnswer = answers['q1'];
                 if (previousAnswer) {
                     document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
@@ -93,7 +93,7 @@
 
             } else if (currentQuestion === 3) {
                 // 두 번째 질문으로 돌아가기
-                document.getElementById('div1').textContent = '당신은 배고픕니까?';
+                document.getElementById('div1').textContent = '단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다.';
                 let previousAnswer = answers['q2'];
                 if (previousAnswer) {
                     document.querySelector(`input[name="answer"][value="${previousAnswer}"]`).checked = true;
