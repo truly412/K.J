@@ -23,32 +23,34 @@
             background-color: #f0f0f0;
         }
 
+        /* 기본 스타일: 웹(데스크탑)용 */
         .letter-container {
             position: relative;
-            width: 80%;
-            max-width: 600px;
-            aspect-ratio: 3/4;
+            width: 80%; /* 기본 너비 */
+            max-width: 600px; /* 최대 너비 */
+            aspect-ratio: 3/4; /* 비율 */
             background-image: url('letter5.jpg');
             background-size: cover;
             background-position: center;
             border-radius: 10px;
             overflow: hidden;
         }
-
-        .letter-content {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-            font-size: 0.8rem;
-            padding: 20px;
-            border-radius: 5px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
+        
+        /* 모바일용 스타일 (화면 너비 768px 이하) */
+        @media only screen and (max-width: 768px) {
+            .letter-container {
+                width: 90%; /* 모바일에서는 더 넓게 설정 */
+                max-width: 100%; /* 최대 너비 제한 해제 */
+                aspect-ratio: auto; /* 비율 조정 가능 */
+                background-size: contain; /* 이미지가 잘리지 않게 함 */
+                background-position: top; /* 이미지가 상단에 위치 */
+            }
+            
+            .letter-content {
+                font-size: 0.9rem; /* 모바일에서는 글씨 크기를 더 작게 */
+            }
         }
+
     </style>
 </head>
 <body>
