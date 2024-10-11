@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letter Display</title>
+    <title>편지지</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background-image: url('letter5.jpg'); /* Background image */
-            background-size: cover; /* Cover the entire background */
-            background-repeat: no-repeat; /* Prevent background image from repeating */
-            height: 100vh; /* Full viewport height */
-            width: 100vw; /* Full viewport width */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-sizing: border-box;
         }
 
-        #letter {
-            font-size: 2em; /* Adjust font size as needed */
-            color: white; /* Text color */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Optional: adds shadow for better visibility */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 화면 전체 높이를 채움 */
+            background-color: #f0f0f0; /* 배경 색 */
+        }
+
+        .letter-container {
+            position: relative;
+            width: 80%; /* 모바일에서의 너비 */
+            max-width: 600px; /* 최대 너비 */
+            aspect-ratio: 3/4; /* 비율 설정 (3:4) */
+            background-image: url('letter.jpg'); /* 배경 이미지 */
+            background-size: cover; /* 배경 이미지를 컨테이너에 맞춤 */
+            background-position: center; /* 배경 이미지 위치 설정 */
+            border-radius: 10px; /* 모서리 둥글게 */
+            overflow: hidden; /* 자식 요소가 넘어가지 않게 */
+        }
+
+        .letter-content {
+            position: absolute;
+            top: 20px; /* 내용 위치 조정 */
+            left: 20px; /* 내용 위치 조정 */
+            right: 20px; /* 내용 위치 조정 */
+            bottom: 20px; /* 내용 위치 조정 */
+            color: #333; /* 텍스트 색 */
+            font-family: 'Arial', sans-serif; /* 폰트 설정 */
+            font-size: 1.2rem; /* 폰트 크기 */
+            padding: 20px; /* 여백 */
+            background-color: rgba(255, 255, 255, 0.8); /* 내용의 배경 색과 투명도 */
+            border-radius: 5px; /* 내용 영역의 모서리 둥글게 */
         }
     </style>
 </head>
 <body>
-    <div id="letter"></div>
-    
-    <script>
-        const letter = "안녕하세요! 여기에 보여줄 문장입니다.2"; // Your text here
-        const letterDiv = document.getElementById('letter');
-
-        let index = 0;
-
-        function displayNextCharacter() {
-            if (index < letter.length) {
-                letterDiv.innerHTML += letter[index]; // Append the next character
-                index++;
-                setTimeout(displayNextCharacter, 200); // Wait 200ms before showing the next character
-            }
-        }
-
-        displayNextCharacter(); // Start displaying characters
-    </script>
+    <div class="letter-container">
+        <div class="letter-content">
+            <p>여기에 할 말을 작성하세요!</p>
+        </div>
+    </div>
 </body>
 </html>
