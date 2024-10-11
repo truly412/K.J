@@ -64,6 +64,33 @@
             transform: translateY(0); /* 제자리로 돌아오기 */
             opacity: 1; /* 완전 불투명 */
         }
+
+        /* 버튼 스타일 */
+        .button-container {
+            display: none; /* 초기에는 숨김 */
+            margin-top: 20px; /* 버튼 상단 여백 */
+        }
+
+        .button-container button {
+            padding: 10px 20px; /* 버튼 여백 */
+            font-size: 16px; /* 버튼 글자 크기 */
+            margin: 0 10px; /* 버튼 간격 */
+            cursor: pointer; /* 마우스 커서 포인터 */
+        }
+
+        .button-container button.yes {
+            background-color: #28a745; /* 초록색 배경 */
+            color: white; /* 흰색 텍스트 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+        }
+
+        .button-container button.no {
+            background-color: #dc3545; /* 빨간색 배경 */
+            color: white; /* 흰색 텍스트 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 모서리 둥글게 */
+        }
     </style>
 </head>
 
@@ -75,6 +102,10 @@
 
         <!-- 새로운 div 추가 -->
         <div id="hidden-event-message"></div>
+        <div class="button-container" id="button-container">
+            <button class="yes" id="yes-btn">예</button>
+            <button class="no" id="no-btn">아니오</button>
+        </div>
     </div>
 
     <script>
@@ -148,19 +179,22 @@
                 }, index * 100); // 각 글자마다 100ms 딜레이
             });
 
-            // 모든 글자가 나타난 후 확인 창 띄우기
-            setTimeout(confirmProceed, (formattedMessage.length + 1) * 100); // 마지막 글자 후에 추가 딜레이
+            // 모든 글자가 나타난 후 버튼 표시
+            setTimeout(() => {
+                document.getElementById('button-container').style.display = 'block'; // 버튼 표시
+            }, (formattedMessage.length + 1) * 100); // 마지막 글자 후에 추가 딜레이
         }
 
-        // 확인 창을 띄우는 함수
-        function confirmProceed() {
-            const confirmProceed = confirm("이벤트를 진행 하시겠습니까?");
-            if (confirmProceed) {
-                alert("이벤트가 진행됩니다.");
-            } else {
-                alert("이벤트가 취소되었습니다.");
-            }
-        }
+        // 예 버튼 클릭 이벤트
+        document.getElementById('yes-btn').addEventListener('click', function() {
+            alert("이벤트가 진행됩니다.");
+            // 여기서 이벤트 관련 코드를 추가하세요
+        });
+
+        // 아니오 버튼 클릭 이벤트
+        document.getElementById('no-btn').addEventListener('click', function() {
+            alert("이벤트가 취소되었습니다.");
+        });
     </script>
 </body>
 
