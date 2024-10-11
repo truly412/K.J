@@ -1,1 +1,48 @@
-event
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>당신의 선택</h1>
+        <div id="answers"></div> <!-- 답변을 표시할 영역 -->
+    </div>
+
+    <script>
+        // localStorage에서 답변을 가져와 화면에 표시
+        const answers = JSON.parse(localStorage.getItem('answers'));
+
+        if (answers) {
+            const answerDisplay = document.getElementById('answers');
+            
+            // 각 질문에 대한 답변을 보여줌
+            const answerText = `
+                <p>Q1: 당신은 김치입니까? - ${getAnswerText(answers.q1)}</p>
+                <p>Q2: 당신은 배고픕니까? - ${getAnswerText(answers.q2)}</p>
+                <p>Q3: 당신은 여자입니까? - ${getAnswerText(answers.q3)}</p>
+            `;
+            answerDisplay.innerHTML = answerText;
+        }
+
+        // 선택한 값에 맞는 텍스트로 변환
+        function getAnswerText(value) {
+            switch (value) {
+                case '1': return '매우 그렇다';
+                case '2': return '그렇다';
+                case '3': return '아니다';
+                case '4': return '매우 아니다';
+                default: return '선택하지 않음';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
