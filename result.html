@@ -94,6 +94,9 @@
             margin-top: 20px; /* 상단 여백 */
             max-width: 100%; /* 최대 너비 설정 */
             height: auto; /* 자동 높이 조절 */
+            display: block; /* 블록 요소로 설정하여 가운데 정렬 가능 */
+            margin-left: auto; /* 왼쪽 여백 자동 설정 */
+            margin-right: auto; /* 오른쪽 여백 자동 설정 */
         }
     </style>
 </head>
@@ -194,11 +197,9 @@
         // 아니오 버튼 클릭 이벤트
         document.getElementById('no-btn').addEventListener('click', function() {
             noButtonClickCount++; // NO 버튼 클릭 카운트 증가
-            alert(`아니오 버튼이 ${noButtonClickCount}번 눌렸습니다.`);
 
             // 10번 눌렸을 때
             if (noButtonClickCount === 10) {
-                alert("10번 눌렀습니다! 'angry.PNG' 이미지를 보여줍니다.");
                 document.getElementById('angry-image').style.display = 'block'; // 이미지 표시
             }
             // 추가 조건을 설정하려면 여기에 작성
