@@ -40,4 +40,13 @@
 
         function displayNextCharacter() {
             if (index < letter.length) {
-                letterDiv.innerHT
+                letterDiv.innerHTML += letter[index]; // 다음 문자를 추가
+                index++;
+                setTimeout(displayNextCharacter, 200); // 다음 문자를 표시하기 전에 200ms 대기
+            }
+        }
+
+        displayNextCharacter(); // 문자 표시 시작
+    </script>
+</body>
+</html>
