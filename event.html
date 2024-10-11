@@ -9,15 +9,15 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('letter5.jpg');
-            background-repeat: no-repeat;
-            height: 100vh;
-            width: 100%;
+            background-image: url('letter5.jpg'); /* 배경 이미지 */
+            background-size: contain; /* 배경 이미지를 화면에 맞춰 조정 */
+            background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+            background-position: center; /* 중앙에 위치 */
+            height: 100vh; /* 전체 뷰포트 높이 */
+            width: 100vw; /* 전체 뷰포트 너비 */
             display: flex;
             align-items: center;
             justify-content: center;
-            background-size: contain;
-            background-position: center;
         }
 
         #letter {
@@ -36,7 +36,7 @@
     <div id="letter"></div>
     
     <script>
-        const letter = "재훈스버전"; // 표시할 텍스트
+        const letter = "안녕하세요! 여기에 보여줄 문장입니다."; // 표시할 텍스트
         const letterDiv = document.getElementById('letter');
 
         let index = 0;
