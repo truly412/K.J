@@ -61,6 +61,7 @@
     <script>
         // localStorage에서 답변을 가져와 화면에 표시
         const answers = JSON.parse(localStorage.getItem('answers'));
+        console.log(answers);
 
         if (answers) {
             const answerDisplay = document.getElementById('answers');
