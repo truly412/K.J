@@ -43,14 +43,34 @@
             padding: 20px; /* 여백 */
             background-color: rgba(255, 255, 255, 0.8); /* 내용의 배경 색과 투명도 */
             border-radius: 5px; /* 내용 영역의 모서리 둥글게 */
+            opacity: 0; /* 초기 투명도 설정 */
+            transition: opacity 0.5s ease-in; /* 투명도 전환 효과 */
         }
     </style>
 </head>
 <body>
     <div class="letter-container">
-        <div class="letter-content">
-            <p>여기에 할 말을 작성하세요!</p>
+        <div class="letter-content" id="letterContent">
+            <!-- JavaScript로 텍스트가 들어감 -->
         </div>
     </div>
+
+    <script>
+        const letter = "여기에 할 말을 작성하세요!"; // 표시할 텍스트
+        const letterContent = document.getElementById('letterContent');
+
+        let index = 0;
+
+        function displayLetter() {
+            if (index < letter.length) {
+                letterContent.innerHTML += letter[index]; // 한 글자씩 추가
+                index++;
+                setTimeout(displayLetter, 300); // 300ms 후에 다음 글자 표시
+                letterContent.style.opacity = 1; // 내용이 나타나도록
+            }
+        }
+
+        displayLetter(); // 애니메이션 시작
+    </script>
 </body>
 </html>
