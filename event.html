@@ -3,44 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Image Example</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.3.1/dist/aos.css">
+    <title>편지</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            background-image: url('letter4.PNG'); /* 배경 이미지 설정 */
-            background-size: 50% 100%; /* 너비를 80%로, 높이는 자동 */
-            background-repeat: no-repeat; /* 이미지 반복 안함 */
-            background-position: center; /* 중앙 정렬 */
-            height: 100vh; /* 전체 화면 높이 */
-            display: flex;
-            align-items: center; /* 수직 중앙 정렬 */
-            justify-content: center; /* 수평 중앙 정렬 */
-            position: relative; /* 자식 요소에 대해 위치 지정 */
+            height: 100%;
         }
-
-        /* 배경을 연하게 하기 위한 레이어 */
-        .overlay {
-            position: absolute; /* 부모 요소에 대해 절대 위치 지정 */
-            top: 0; /* 위쪽 정렬 */
-            left: 0; /* 왼쪽 정렬 */
-            right: 0; /* 오른쪽 정렬 */
-            bottom: 0; /* 아래쪽 정렬 */
-            background-color: rgba(255, 255, 255, 0.5); /* 흰색 배경색을 50% 투명도로 설정 */
-            z-index: 1; /* 배경 이미지보다 위에 표시 */
-        }
-
-        #letter {
-            font-size: 2em; /* 글자 크기 조정 */
-            color: black; /* 글자 색상 */
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7); /* 가독성을 위한 그림자 효과 */
-            position: relative; /* 텍스트가 overlay 위에 표시되도록 설정 */
-            z-index: 2; /* overlay보다 위에 표시 */
+        
+        .letter {
+            background-image: url('letter.jpg'); /* 배경 이미지 설정 */
+            background-size: cover; /* 배경 이미지가 div를 덮도록 설정 */
+            background-position: center; /* 배경 이미지의 중앙 정렬 */
+            color: white; /* 글자 색상 */
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px; /* 편지의 최대 너비 */
+            margin: 100px auto; /* 중앙 정렬 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+            font-family: 'Arial', sans-serif; /* 글꼴 설정 */
+            opacity: 0.9; /* 투명도 설정 */
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div> <!-- 연하게 만들기 위한 오버레이 -->
-    <div id="letter">안녕하세요! 여기에 보여줄 문장입니다.</div>
+
+    <div class="letter" data-aos="fade-up">
+        <h1>사랑하는 친구에게</h1>
+        <p>안녕! 오랜만이야. 잘 지내고 있니?</p>
+        <p>이 편지를 통해 너에게 내 마음을 전하고 싶어.</p>
+        <p>언제나 너의 행복을 기원하고 있어.</p>
+        <p>곧 만날 날을 기다릴게!</p>
+        <p>사랑해,</p>
+        <p>친구가</p>
+    </div>
+
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
