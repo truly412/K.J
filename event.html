@@ -59,80 +59,82 @@
     </div>
 
     <script>
-        // localStorage에서 답변을 가져와 화면에 표시
-        const answers = JSON.parse(localStorage.getItem('answers'));
-        console.log(answers);
+    // localStorage에서 답변을 가져와 화면에 표시
+    const answers = JSON.parse(localStorage.getItem('answers'));
+    console.log(answers);
 
-        if (answers) {
-            const answerDisplay = document.getElementById('answers');
+    if (answers) {
+        const answerDisplay = document.getElementById('answers');
 
-            // 각 질문에 대한 답변을 보여줌
-            const answerText = `
-                <p>Q1: 주기적으로 새로운 친구를 사귄다 - ${getAnswerText(answers.q1)}</p>
-                <p>Q2: 단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다 - ${getAnswerText(answers.q2)}</p>
-                <p>Q3: 일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다 - ${getAnswerText(answers.q3)}</p>
-            `;
-            answerDisplay.innerHTML = answerText;
+        // 각 질문에 대한 답변을 보여줌
+        const answerText = `
+            <p>Q1: 주기적으로 새로운 친구를 사귄다 - ${getAnswerText(answers.q1)}</p>
+            <p>Q2: 단순하고 직관적인 아이디어보다는 복잡하고 참신한 아이디어에 흥미를 느낀다 - ${getAnswerText(answers.q2)}</p>
+            <p>Q3: 일반적으로 사실에 기반한 주장보다 감정적으로 공감 가는 내용이 더 설득력 있다고 느낀다 - ${getAnswerText(answers.q3)}</p>
+        `;
+        answerDisplay.innerHTML = answerText;
 
-            // 확인 창 표시
-            if (calculateTotalScore(answers) > 10) {
-                // 메시지를 한 글자씩 표시하는 함수 호출
-                showMessage("합산점수 10을 넘었음으로 히든 이벤트가 발생합니다");
-            }
+        // 확인 창 표시
+        if (calculateTotalScore(answers) > 10) {
+            // 메시지를 한 글자씩 표시하는 함수 호출
+            showMessage("합산점수 10을 넘었음으로 히든 이벤트가 발생합니다");
+        }
+    }
+
+    // 선택한 값에 맞는 텍스트로 변환
+    function getAnswerText(value) {
+        switch (value) {
+            case '1': return '매우 그렇다';
+            case '2': return '그렇다';
+            case '3': return '아니다';
+            case '4': return '매우 아니다';
+            default: return '선택하지 않음';
+        }
+    }
+
+    // 합산 점수를 계산하는 함수
+    function calculateTotalScore(answers) {
+        let totalScore = 0;
+        for (let key in answers) {
+            totalScore += parseInt(answers[key]); // 선택한 값들을 합산
+        }
+        return totalScore;
+    }
+
+    // 메시지를 한 글자씩 출력하는 함수
+    function showMessage(message) {
+        const messageContainer = document.getElementById('hidden-event-message');
+        messageContainer.textContent = ''; // 초기화
+        messageContainer.style.opacity = 1; // 초기 투명도 설정
+
+        // 메시지의 각 글자를 span 요소로 추가
+        for (let char of message) {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.className = 'letter'; // letter 클래스 추가
+            messageContainer.appendChild(span); // 메시지 컨테이너에 추가
         }
 
-        // 선택한 값에 맞는 텍스트로 변환
-        function getAnswerText(value) {
-            switch (value) {
-                case '1': return '매우 그렇다';
-                case '2': return '그렇다';
-                case '3': return '아니다';
-                case '4': return '매우 아니다';
-                default: return '선택하지 않음';
-            }
+        // 글자를 순차적으로 보여주는 애니메이션
+        const letters = document.querySelectorAll('.letter');
+        letters.forEach((letter, index) => {
+            setTimeout(() => {
+                letter.classList.add('show'); // show 클래스 추가로 애니메이션 시작
+            }, index * 100); // 각 글자마다 100ms 딜레이
+        });
+
+        // 모든 글자가 나타난 후 확인 창 띄우기
+        setTimeout(confirmProceed, (message.length + 1) * 100); // 마지막 글자 후에 추가 딜레이
+    }
+
+    // 확인 창을 띄우는 함수
+    function confirmProceed() {
+        const confirmProceed = confirm("이벤트를 진행 하시겠습니까?");
+        if (confirmProceed) {
+            alert("이벤트가 진행됩니다.");
+        } else {
+            alert("이벤트가 취소되었습니다.");
         }
+    }
+</script>
 
-        // 합산 점수를 계산하는 함수
-        function calculateTotalScore(answers) {
-            let totalScore = 0;
-            for (let key in answers) {
-                totalScore += parseInt(answers[key]); // 선택한 값들을 합산
-            }
-            return totalScore;
-        }
-
-        // 메시지를 한 글자씩 출력하는 함수
-        function showMessage(message) {
-            const messageContainer = document.getElementById('hidden-event-message');
-            messageContainer.textContent = ''; // 초기화
-
-            // 메시지의 각 글자를 span 요소로 추가
-            for (let char of message) {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.className = 'letter'; // letter 클래스 추가
-                messageContainer.appendChild(span); // 메시지 컨테이너에 추가
-            }
-
-            // 글자를 순차적으로 보여주는 애니메이션
-            const letters = document.querySelectorAll('.letter');
-            letters.forEach((letter, index) => {
-                setTimeout(() => {
-                    letter.classList.add('show'); // show 클래스 추가로 애니메이션 시작
-                }, index * 100); // 각 글자마다 100ms 딜레이
-            });
-
-            // 모든 글자가 나타난 후 확인 창 띄우기
-            setTimeout(confirmProceed, message.length * 100 + 500); // 마지막 글자 후에 추가 딜레이
-        }
-
-        // 확인 창을 띄우는 함수
-        function confirmProceed() {
-            const confirmProceed = confirm("이벤트를 진행 하시겠습니까?");
-            if (confirmProceed) {
-                alert("이벤트가 진행됩니다.");
-            } else {
-                alert("이벤트가 취소되었습니다.");
-            }
-        }
-    </script>
