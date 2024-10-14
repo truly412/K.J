@@ -98,6 +98,23 @@
             calculateProbabilities(text, '타플');
         }
 
+        // Function to calculate and display probabilities for patterns "플플플", "플플플플", etc.
+        function highlightMultiplePatterns() {
+            const text = textDisplay.innerText;
+            let results = ''; // Variable to hold the results
+
+            for (let i = 3; i <= 10; i++) { // From "플플플" to "플플플플플플플플플플"
+                const pattern = '플'.repeat(i); // Create the pattern dynamically
+                const totalOccurrences = (text.match(new RegExp(pattern, 'g')) || []).length;
+
+                results += '${pattern}' 확률: ${totalOccurrences}회<br>;
+            }
+            
+
+            probabilitiesDiv.innerHTML = results; // Display the results in the probabilities div
+            highlightMultiplePl();
+        }
+
         // Function to highlight "플" when three or more "플" are found
         function highlightMultiplePl() {
             const text = textDisplay.innerText;
@@ -140,7 +157,7 @@
         btn1.addEventListener('click', highlightPattern1);
         btn2.addEventListener('click', highlightPattern2);
         btn3.addEventListener('click', highlightPattern3); // Add event listener for the new button
-        btn4.addEventListener('click', highlightMultiplePl); // Attach event listener for btn4
+        btn4.addEventListener('click', highlightMultiplePatterns); // Attach event listener for btn4
     </script>
 
 </body>
