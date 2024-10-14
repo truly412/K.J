@@ -21,12 +21,16 @@
             max-width: 800px; /* 최대 너비 설정 */
             margin: 20px auto; /* 가운데 정렬 및 상하 여백 추가 */
         }
+        .clickBoard {
+            text-align: center;
+        }
         .player {
             border: 2px solid #ccc;
             border-radius: 10px;
             padding: 0px;
             width: 100%; /* 각 플레이어 박스의 너비 */
             text-align: center;
+            margin-bottom: 10px;
         }
         .hp {
             background-color: #28a745; /* 초록색 */
@@ -45,30 +49,54 @@
             margin: 10px 0; /* 상하 여백 추가 */
             line-height: 1; /* 줄 간격 조정 */
         }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="fight" id="fight">
-        <div class="player" id="player1">
-            <div id="p1_name"></div> <!-- 플레이어 1 이름 -->
-            <pre>
+        <div class="clickBoard" id="board1">
+            <div class="player" id="player1">
+                <div id="p1_name"></div> <!-- 플레이어 1 이름 -->
+                <pre>
  o
 ／|＼
 ／ ＼
-            </pre> <!-- 사람 모양 ASCII 아트 -->
-            <div class="hp" id="p1_hp"></div>
-            <div class="mp" id="p1_mp"></div>
+                </pre> <!-- 사람 모양 ASCII 아트 -->
+                <div class="hp" id="p1_hp"></div>
+                <div class="mp" id="p1_mp"></div>
+            </div>
+            <!-- 공격 및 스킬 버튼 추가 -->
+            <button id="p1_attack">Attack</button>
+            <button id="p1_skill1">Skill 1</button>
+            <button id="p1_skill2">Skill 2</button>
         </div>
 
-        <div class="player" id="player2">
-            <div id="p2_name"></div> <!-- 플레이어 2 이름 -->
-            <pre>
+        <div class="clickBoard" id="board2">
+            <div class="player" id="player2">
+                <div id="p2_name"></div> <!-- 플레이어 2 이름 -->
+                <pre>
  o
 ／|＼
 ／ ＼
-            </pre> <!-- 사람 모양 ASCII 아트 -->
-            <div class="hp" id="p2_hp"></div>
-            <div class="mp" id="p2_mp"></div>
+                </pre> <!-- 사람 모양 ASCII 아트 -->
+                <div class="hp" id="p2_hp"></div>
+                <div class="mp" id="p2_mp"></div>
+            </div>
+            <!-- 공격 및 스킬 버튼 추가 -->
+            <button id="p2_attack">Attack</button>
+            <button id="p2_skill1">Skill 1</button>
+            <button id="p2_skill2">Skill 2</button>
         </div>
     </div>
 
@@ -78,12 +106,12 @@
             const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
             if (selectedPlayers) {
                 // 플레이어 1 정보 표시
-                $('#p1_name').text(selectedPlayers.player1.name); // 이름은 스킬1로 설정 (예시)
+                $('#p1_name').text(selectedPlayers.player1.name);
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                 $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
                 
                 // 플레이어 2 정보 표시
-                $('#p2_name').text(selectedPlayers.player2.name); // 이름은 스킬1로 설정 (예시)
+                $('#p2_name').text(selectedPlayers.player2.name);
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
             } else {
