@@ -4,17 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Start</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .player {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .hp {
+            background-color: #28a745; /* 초록색 */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .mp {
+            background-color: #007bff; /* 파란색 */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="player" id="player1">
+        <h2>플레이어 1</h2>
+        <div id="p1_name"></div>
+        <div class="hp" id="p1_hp"></div>
+        <div class="mp" id="p1_mp"></div>
+    </div>
+
+    <div class="player" id="player2">
+        <h2>플레이어 2</h2>
+        <div id="p2_name"></div>
+        <div class="hp" id="p2_hp"></div>
+        <div class="mp" id="p2_mp"></div>
+    </div>
+
     <script>
         // 페이지 로드 시 선택된 플레이어 정보 가져오기
         window.onload = function() {
             const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
-            console.log(selectedPlayers); // 선택된 플레이어 정보를 콘솔에 출력
-            // 필요한 추가 로직을 여기에 작성
+            if (selectedPlayers) {
+                // 플레이어 1 정보 표시
+                $('#p1_name').text(selectedPlayers.player1.skill1); // 이름은 스킬1로 설정 (예시)
+                $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
+                $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
+                
+                // 플레이어 2 정보 표시
+                $('#p2_name').text(selectedPlayers.player2.skill1); // 이름은 스킬1로 설정 (예시)
+                $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
+                $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
+            } else {
+                console.log('선택된 플레이어 정보가 없습니다.');
+            }
         };
     </script>
-</head>
-<body>
-    <h1>게임 시작!</h1>
-    <!-- 추가적인 게임 시작 로직 -->
+    <!-- jQuery를 CDN에서 포함 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
