@@ -149,6 +149,14 @@
             }
 
             probabilitiesDiv.innerHTML = results; // Display the results in the probabilities div
+
+            // Regular expression to match three or more consecutive "플"
+            const regex = /(플{3,})/g; // Matches "플플플" and more
+            const highlightedText = text.replace(regex, (match) => {
+                return `<span class="highlight">${match}</span>`; // Highlight the matched "플" group
+            });
+
+            textDisplay.innerHTML = highlightedText; // Update the text area with highlighted text
         }
 
         // Event listeners for the buttons
