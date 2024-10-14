@@ -150,7 +150,10 @@
                 if (currentTurn !== 'p1') return; // p1의 턴이 아니면 아무 동작도 하지 않음
                 const p2MaxHp = selectedPlayers.player2.maxHp;
                 selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
-                if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
+                if (selectedPlayers.player2.hp < 0) {
+                    selectedPlayers.player2.hp = 0;
+                    result('p1');
+                }
 
                 const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
                 $('#p2_hp_bar').css('width', p2HpPercentage + '%');
@@ -172,7 +175,10 @@
 
                     // HP 및 MP 업데이트
                     const p2MaxHp = selectedPlayers.player2.maxHp;
-                    if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
+                    if (selectedPlayers.player2.hp < 0) {
+                        selectedPlayers.player2.hp = 0;
+                        result('p1');
+                    }
 
                     $('#p2_hp_bar').css('width', (selectedPlayers.player2.hp / p2MaxHp) * 100 + '%');
                     $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
@@ -190,7 +196,10 @@
                 if (currentTurn !== 'p2') return; // p2의 턴이 아니면 아무 동작도 하지 않음
                 const p1MaxHp = selectedPlayers.player1.maxHp;
                 selectedPlayers.player1.hp -= selectedPlayers.player2.attackPower;
-                if (selectedPlayers.player1.hp < 0) selectedPlayers.player1.hp = 0;
+                if (selectedPlayers.player1.hp < 0) {
+                    selectedPlayers.player1.hp = 0;
+                    result('p2');
+                }
 
                 const p1HpPercentage = (selectedPlayers.player1.hp / p1MaxHp) * 100;
                 $('#p1_hp_bar').css('width', p1HpPercentage + '%');
@@ -212,7 +221,10 @@
 
                     // HP 및 MP 업데이트
                     const p1MaxHp = selectedPlayers.player1.maxHp;
-                    if (selectedPlayers.player1.hp < 0) selectedPlayers.player1.hp = 0;
+                    if (selectedPlayers.player1.hp < 0) {
+                        selectedPlayers.player1.hp = 0;
+                        result('p2');
+                    }
 
                     $('#p1_hp_bar').css('width', (selectedPlayers.player1.hp / p1MaxHp) * 100 + '%');
                     $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
@@ -274,6 +286,11 @@
                     $(button).addClass('disabled').prop('disabled', true);
                 });
             }
+
+            function result(winner) {
+                alert('winner is :'+winner);
+            }
+                
         });
     </script>
 </body>
