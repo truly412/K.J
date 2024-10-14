@@ -9,17 +9,6 @@
             width: 100%;
             height: 100px;
         }
-        ul {
-            list-style-type: none;
-        }
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .list-item button {
-            margin-left: 10px;
-        }
     </style>
 </head>
 <body>
@@ -29,87 +18,47 @@
     <!-- Textarea for input -->
     <textarea id="textInput" placeholder="Paste your content here"></textarea>
 
-    <!-- Save button -->
-    <button id="saveBtn">Save</button>
-    <!-- Edit button -->
-    <button id="editBtn" style="display: none;">Edit</button>
-
-    <!-- Result list -->
-    <h3>Saved Results:</h3>
-    <ul id="resultList"></ul>
+    <!-- Save/Edit button -->
+    <button id="saveEditBtn">Save</button>
 
     <script>
-        // JavaScript to handle the functionality
         const textarea = document.getElementById('textInput');
-        const saveBtn = document.getElementById('saveBtn');
-        const editBtn = document.getElementById('editBtn');
-        const resultList = document.getElementById('resultList');
+        const saveEditBtn = document.getElementById('saveEditBtn');
 
         let isEditing = false;
-        let editingItem = null;
 
-        // Save button functionality
-        saveBtn.addEventListener('click', function() {
+        // Function to handle saving and editing
+        function handleSaveEdit() {
             const textValue = textarea.value.trim();
 
             if (textValue) {
-                if (isEditing && editingItem) {
-                    // Update the existing list item
-                    editingItem.textContent = textValue;
-                    editingItem.appendChild(createEditButton(editingItem));
-
-                    // Reset the textarea and state
-                    textarea.value = '';
+                if (!isEditing) {
+                    // Save the value and disable textarea
                     textarea.setAttribute('readonly', 'true');
-                    saveBtn.style.display = 'none';
-                    editBtn.style.display = 'none';
-                    isEditing = false;
-                    editingItem = null;
+                    saveEditBtn.textContent = 'Edit';
+                    isEditing = true;
                 } else {
-                    // Create a new list item
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('list-item');
-                    listItem.textContent = textValue;
-
-                    // Add edit button to the list item
-                    listItem.appendChild(createEditButton(listItem));
-
-                    // Add the new item to the result list
-                    resultList.appendChild(listItem);
-
-                    // Make the textarea readonly
-                    textarea.setAttribute('readonly', 'true');
-                    saveBtn.style.display = 'none';
-                    editBtn.style.display = 'block';
+                    // Enable editing in textarea
+                    textarea.removeAttribute('readonly');
+                    textarea.focus();
+                    saveEditBtn.textContent = 'Save';
+                    isEditing = false;
                 }
             } else {
                 alert("Textarea cannot be empty!");
             }
-        });
-
-        // Edit button functionality
-        editBtn.addEventListener('click', function() {
-            textarea.removeAttribute('readonly');
-            textarea.focus();
-            isEditing = true;
-        });
-
-        // Function to create the edit button
-        function createEditButton(item) {
-            const button = document.createElement('button');
-            button.textContent = 'Edit';
-            button.addEventListener('click', function() {
-                // Load the list item's content into the textarea for editing
-                textarea.value = item.firstChild.textContent;
-                textarea.removeAttribute('readonly');
-                saveBtn.style.display = 'block';
-                editBtn.style.display = 'none';
-
-                isEditing = true;
-                editingItem = item;
-            });
-            return button;
         }
+
+        // Event listener for save/edit button
+        saveEditBtn.addEventListener('click', handleSaveEdit);
+
+        // Event listener for "Enter" key in textarea
+        textarea.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent the default action (new line)
+                handleSaveEdit(); // Simulate save/edit button click
+            }
+        });
     </script>
 
 </body>
