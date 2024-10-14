@@ -137,6 +137,7 @@
 
             // p1의 공격 버튼 클릭 시 p2의 HP 감소
             $('#p1_attack').click(function() {
+                alert(1);
                 const p2MaxHp = selectedPlayers.player2.maxHp;
                 selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
                 if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0; // HP가 0 이하로 떨어지지 않도록 처리
