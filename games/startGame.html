@@ -45,62 +45,24 @@
             margin: 10px 0; /* 상하 여백 추가 */
             line-height: 1; /* 줄 간격 조정 */
         }
-        .person {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .head {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #FFD700; /* 얼굴 색상 */
-            margin-bottom: 5px;
-        }
-        .body {
-            width: 10px;
-            height: 60px;
-            background-color: #4682B4; /* 몸 색상 */
-            margin-bottom: 5px;
-        }
-        .arms {
-            display: flex;
-            justify-content: space-between;
-            width: 40px;
-        }
-        .arm {
-            width: 10px;
-            height: 40px;
-            background-color: #4682B4; /* 팔 색상 */
-        }
-        .legs {
-            display: flex;
-            justify-content: space-between;
-            width: 20px;
-        }
-        .leg {
-            width: 10px;
-            height: 50px;
-            background-color: #4682B4; /* 다리 색상 */
-        }
     </style>
 </head>
 <body>
     <div class="fight" id="fight">
         <div class="player" id="player1">
             <div id="p1_name"></div> <!-- 플레이어 1 이름 -->
-            <div class="person">
-                <div class="head"></div>
-                <div class="arms">
-                    <div class="arm"></div>
-                    <div class="arm"></div>
-                </div>
-                <div class="body"></div>
-                <div class="legs">
-                    <div class="leg"></div>
-                    <div class="leg"></div>
-                </div>
-            </div>
+            <svg width="100" height="200">
+                <!-- 머리 -->
+                <circle cx="50" cy="30" r="20" fill="#FFD700" />
+                <!-- 몸 -->
+                <rect x="45" y="50" width="10" height="60" fill="#4682B4" />
+                <!-- 팔 -->
+                <rect x="30" y="50" width="15" height="10" fill="#4682B4" />
+                <rect x="55" y="50" width="15" height="10" fill="#4682B4" />
+                <!-- 다리 -->
+                <rect x="45" y="110" width="10" height="40" fill="#4682B4" />
+                <rect x="35" y="110" width="10" height="40" fill="#4682B4" />
+            </svg>
             <div class="hp" id="p1_hp"></div>
             <div class="mp" id="p1_mp"></div>
         </div>
