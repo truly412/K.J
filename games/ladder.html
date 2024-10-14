@@ -50,20 +50,21 @@
             textDisplay.innerText = textValue;        // Set it back to the div as plain text
         }
 
-        // Function to highlight all occurrences of "짝짝홀" and color the following text green
+        // Function to highlight "짝짝홀" and the immediate next character in green
         function highlightPattern() {
             const text = textDisplay.innerText;
-            // Regular expression to match "짝짝홀" and capture the following text
-            const regex = /(짝짝홀)(\S*)/g;  
+            // Regular expression to match "짝짝홀" and capture the next character
+            const regex = /(짝짝홀)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
-                return `<span class="highlight">${p1}</span><span class="next-highlight">${p2}</span>`;
+                const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
+                return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
             // Replace inner HTML of the div with highlighted text
             textDisplay.innerHTML = highlightedText;
         }
 
-        // Event listener for the button to highlight "짝짝홀" and following text
+        // Event listener for the button to highlight "짝짝홀" and the next character
         btn1.addEventListener('click', highlightPattern);
     </script>
 
