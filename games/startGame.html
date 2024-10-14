@@ -152,7 +152,7 @@
                 selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
                 if (selectedPlayers.player2.hp < 0) {
                     selectedPlayers.player2.hp = 0;
-                    result('p1');
+                    result(selectedPlayers.player1.name);
                 }
 
                 const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
@@ -177,7 +177,7 @@
                     const p2MaxHp = selectedPlayers.player2.maxHp;
                     if (selectedPlayers.player2.hp < 0) {
                         selectedPlayers.player2.hp = 0;
-                        result('p1');
+                        result(selectedPlayers.player1.name);
                     }
 
                     $('#p2_hp_bar').css('width', (selectedPlayers.player2.hp / p2MaxHp) * 100 + '%');
@@ -198,7 +198,7 @@
                 selectedPlayers.player1.hp -= selectedPlayers.player2.attackPower;
                 if (selectedPlayers.player1.hp < 0) {
                     selectedPlayers.player1.hp = 0;
-                    result('p2');
+                    result(selectedPlayers.player2.name);
                 }
 
                 const p1HpPercentage = (selectedPlayers.player1.hp / p1MaxHp) * 100;
@@ -223,7 +223,7 @@
                     const p1MaxHp = selectedPlayers.player1.maxHp;
                     if (selectedPlayers.player1.hp < 0) {
                         selectedPlayers.player1.hp = 0;
-                        result('p2');
+                        result(selectedPlayers.player2.name);
                     }
 
                     $('#p1_hp_bar').css('width', (selectedPlayers.player1.hp / p1MaxHp) * 100 + '%');
@@ -289,6 +289,7 @@
 
             function result(winner) {
                 alert('winner is :'+winner);
+                window.location.href = './fightGame.html';
             }
                 
         });
