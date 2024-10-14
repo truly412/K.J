@@ -245,7 +245,9 @@
                 if (selectedPlayers.player1.mp < p1Skill1Cost) {
                     disablePlayerButtons('#p1_skill1');
                 } else {
-                    enablePlayerButtons('#p1_skill1');
+                    if (currentTurn === 'p1') {
+                        enablePlayerButtons('#p1_skill1');
+                    }
                 }
 
                 // p2의 스킬 사용 가능 여부 확인
@@ -253,7 +255,9 @@
                 if (selectedPlayers.player2.mp < p2Skill1Cost) {
                     disablePlayerButtons('#p2_skill1');
                 } else {
-                    enablePlayerButtons('#p2_skill1');
+                    if (currentTurn === 'p2') {
+                        enablePlayerButtons('#p2_skill1');
+                    }
                 }
             }
 
