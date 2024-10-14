@@ -42,6 +42,7 @@
         <button id="btn2">플뱅플뱅</button>
         <button id="btn3">타플뱅</button> <!-- New button for "타플뱅" -->
         <button id="btn4">플줄</button> <!-- New button for "플줄" -->
+        <button id="btn5">뱅줄</button> <!-- New button for "뱅줄" -->
         <div id="probabilities"></div> <!-- Div to show probabilities -->
     </div>
     
@@ -137,7 +138,7 @@
         }
 
         // Function to calculate and display probabilities for patterns "플플플", "플플플플", etc.
-        function highlightMultiplePatterns() {
+        function highlightPlePatterns() {
             const text = textDisplay.innerText;
             let results = ''; // Variable to hold the results
 
@@ -151,11 +152,27 @@
             probabilitiesDiv.innerHTML = results; // Display the results in the probabilities div
         }
 
+        // Function to calculate and display probabilities for patterns "뱅뱅뱅", "뱅뱅뱅뱅", etc.
+        function highlightBangPatterns() {
+            const text = textDisplay.innerText;
+            let results = ''; // Variable to hold the results
+
+            for (let i = 3; i <= 10; i++) { // From "뱅뱅뱅" to "뱅뱅뱅뱅뱅뱅뱅뱅뱅뱅"
+                const pattern = '뱅'.repeat(i); // Create the pattern dynamically
+                const totalOccurrences = (text.match(new RegExp(pattern, 'g')) || []).length;
+
+                results += `'${pattern}' 확률: ${totalOccurrences}회<br>`;
+            }
+
+            probabilitiesDiv.innerHTML = results; // Display the results in the probabilities div
+        }
+
         // Event listeners for the buttons
         btn1.addEventListener('click', highlightPattern1);
         btn2.addEventListener('click', highlightPattern2);
         btn3.addEventListener('click', highlightPattern3); // Add event listener for the new button
-        btn4.addEventListener('click', highlightMultiplePatterns); // Attach event listener for btn4
+        btn4.addEventListener('click', highlightPlePatterns); // Attach event listener for btn4
+        btn5.addEventListener('click', highlightBangPatterns); // Attach event listener for btn5
     </script>
 
 </body>
