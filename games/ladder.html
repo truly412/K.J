@@ -16,8 +16,13 @@
         .highlight {
             background-color: red;
         }
-        .next-highlight {
+        .next-highlight-pl { /* Style for "플" */
+            background-color: purple;
+            color: white;
+        }
+        .next-highlight-bn { /* Style for "뱅" */
             background-color: green;
+            color: white;
         }
         #probabilities {
             margin-top: 10px;
@@ -59,7 +64,7 @@
             // Regular expression to match "플플" and capture the next character
             const regex = /(플플)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
-                const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
+                const nextChar = p2 ? `<span class="next-highlight-${p2 === '플' ? 'pl' : 'bn'}">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
@@ -76,7 +81,7 @@
             // Regular expression to match "플뱅플" and capture the next character
             const regex = /(플뱅플)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
-                const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
+                const nextChar = p2 ? `<span class="next-highlight-${p2 === '플' ? 'pl' : 'bn'}">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
@@ -93,7 +98,7 @@
             // Regular expression to match "타플" and capture the next character
             const regex = /(타플)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
-                const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
+                const nextChar = p2 ? `<span class="next-highlight-${p2 === '플' ? 'pl' : 'bn'}">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
