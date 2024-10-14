@@ -160,6 +160,30 @@
                 updateTurnUI();
             });
 
+            // p1의 Skill 1 클릭 시 HP 감소 및 MP 소모
+            $('#p1_skill1').click(function() {
+                if (currentTurn !== 'p1') return; // p1의 턴이 아니면 아무 동작도 하지 않음
+                const skill = selectedPlayers.player1.skill1; // 스킬 정보
+                if (selectedPlayers.player1.mp >= skill.mpCost) {
+                    selectedPlayers.player2.hp -= skill.power; // HP 감소
+                    selectedPlayers.player1.mp -= skill.mpCost; // MP 소모
+
+                    // HP 및 MP 업데이트
+                    const p2MaxHp = selectedPlayers.player2.maxHp;
+                    const p1MaxMp = selectedPlayers.player1.mp;
+                    
+                    if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
+                    
+                    $('#p2_hp_bar').css('width', (selectedPlayers.player2.hp / p2MaxHp) * 100 + '%');
+                    $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
+                    $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
+
+                    // 턴을 p2로 변경
+                    currentTurn = 'p2';
+                    updateTurnUI();
+                }
+            });
+
             // p2의 공격 버튼 클릭 시 p1의 HP 감소
             $('#p2_attack').click(function() {
                 if (currentTurn !== 'p2') return; // p2의 턴이 아니면 아무 동작도 하지 않음
