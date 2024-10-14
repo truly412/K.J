@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ladder</title>
+    <title>Ladder Task</title>
     <style>
         textarea {
             width: 100%;
@@ -16,20 +16,38 @@
     <h1>Ladder Task</h1>
 
     <!-- Textarea for input -->
-    <textarea id="textInput" placeholder="Paste your content here"></textarea>
+    <textarea id="textInput" placeholder="Paste 짝홀 here"></textarea>
 
     <!-- Save/Edit button -->
     <button id="saveEditBtn">Save</button>
 
+    <!-- Validation message -->
+    <p id="validationMessage" style="color: red; display: none;">Invalid input! Only '짝' and '홀' are allowed.</p>
+
     <script>
         const textarea = document.getElementById('textInput');
         const saveEditBtn = document.getElementById('saveEditBtn');
+        const validationMessage = document.getElementById('validationMessage');
 
         let isEditing = false;
+
+        // Function to validate input (only '짝' and '홀' allowed)
+        function validateInput(input) {
+            const regex = /^[짝홀]+$/; // Regular expression to allow only '짝' and '홀'
+            return regex.test(input);
+        }
 
         // Function to handle saving and editing
         function handleSaveEdit() {
             const textValue = textarea.value.trim();
+
+            // Validate input
+            if (!validateInput(textValue)) {
+                validationMessage.style.display = 'block'; // Show error message
+                return;
+            }
+
+            validationMessage.style.display = 'none'; // Hide error message if valid
 
             if (textValue) {
                 if (!isEditing) {
