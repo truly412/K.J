@@ -155,7 +155,7 @@
                 }
 
                 const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
-                $('#p2_hp').css('width', p2HpPercentage + '%');
+                $('#p2_hp_bar').css('width', p2HpPercentage + '%');
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
 
                 // 턴을 p2로 변경
@@ -179,7 +179,7 @@
                         result(selectedPlayers.player1.name);
                     }
 
-                    $('#p2_hp').css('width', (selectedPlayers.player2.hp / p2MaxHp) * 100 + '%');
+                    $('#p2_hp_bar').css('width', (selectedPlayers.player2.hp / p2MaxHp) * 100 + '%');
                     $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                     $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
 
@@ -201,7 +201,7 @@
                 }
 
                 const p1HpPercentage = (selectedPlayers.player1.hp / p1MaxHp) * 100;
-                $('#p1_hp').css('width', p1HpPercentage + '%');
+                $('#p1_hp_bar').css('width', p1HpPercentage + '%');
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
 
                 // 턴을 p1으로 변경
@@ -225,7 +225,7 @@
                         result(selectedPlayers.player2.name);
                     }
 
-                    $('#p1_hp').css('width', (selectedPlayers.player1.hp / p1MaxHp) * 100 + '%');
+                    $('#p1_hp_bar').css('width', (selectedPlayers.player1.hp / p1MaxHp) * 100 + '%');
                     $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                     $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
 
