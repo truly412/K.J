@@ -47,10 +47,18 @@
             transition: width 0.5s ease;
         }
         .mp {
-            background-color: #007bff;
+            background-color: white;
             color: white;
             padding: 10px;
             border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .mp .mp-bar {
+            background-color: #007bff;
+            width: 100%;
+            height: 100%;
+            transition: width 0.5s ease;
         }
         pre {
             font-size: 24px;
@@ -88,7 +96,9 @@
                 <div class="hp" id="p1_hp">
                     <div class="hp-bar" id="p1_hp_bar"></div>
                 </div>
-                <div class="mp" id="p1_mp"></div>
+                <div class="mp" id="p1_mp">
+                    <div class="mp-bar" id="p1_mp_bar"></div>
+                </div>
             </div>
             <button id="p1_attack">Attack</button>
             <button id="p1_skill1">Skill 1</button>
@@ -105,7 +115,9 @@
                 <div class="hp" id="p2_hp">
                     <div class="hp-bar" id="p2_hp_bar"></div>
                 </div>
-                <div class="mp" id="p2_mp"></div>
+                <div class="mp" id="p2_mp">
+                    <div class="mp-bar" id="p2_mp_bar"></div>
+                </div>
             </div>
             <button id="p2_attack">Attack</button>
             <button id="p2_skill1">Skill 1</button>
@@ -131,14 +143,16 @@
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                 $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
                 $('#p1_hp_bar').css('width', '100%');
+                $('#p1_mp_bar').css('width', '100%'); // MP 바 초기화
 
                 // 플레이어 2 정보 표시
                 $('#p2_name').text(selectedPlayers.player2.name);
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
                 $('#p2_hp_bar').css('width', '100%');
+                $('#p2_mp_bar').css('width', '100%'); // MP 바 초기화
 
-                // Initial check to disable skill buttons if necessary
+                // 초기 스킬 버튼 사용 가능 여부 확인
                 checkSkillAvailability();
             }
 
@@ -158,7 +172,7 @@
 
                 // 턴을 p2로 변경
                 currentTurn = 'p2';
-                checkSkillAvailability(); // Check skill availability after action
+                checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
                 updateTurnUI();
             });
 
@@ -178,9 +192,13 @@
                     $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                     $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
 
+                    // MP 바 업데이트
+                    const p1MpPercentage = (selectedPlayers.player1.mp / selectedPlayers.player1.maxMp) * 100;
+                    $('#p1_mp_bar').css('width', p1MpPercentage + '%'); 
+
                     // 턴을 p2로 변경
                     currentTurn = 'p2';
-                    checkSkillAvailability(); // Check skill availability after action
+                    checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
                     updateTurnUI();
                 }
             });
@@ -198,7 +216,7 @@
 
                 // 턴을 p1으로 변경
                 currentTurn = 'p1';
-                checkSkillAvailability(); // Check skill availability after action
+                checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
                 updateTurnUI();
             });
 
@@ -218,9 +236,13 @@
                     $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                     $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
 
+                    // MP 바 업데이트
+                    const p2MpPercentage = (selectedPlayers.player2.mp / selectedPlayers.player2.maxMp) * 100;
+                    $('#p2_mp_bar').css('width', p2MpPercentage + '%');
+
                     // 턴을 p1으로 변경
                     currentTurn = 'p1';
-                    checkSkillAvailability(); // Check skill availability after action
+                    checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
                     updateTurnUI();
                 }
             });
