@@ -55,34 +55,38 @@
     <button id="startButton">게임 시작</button>
     
     <script>
-        // 플레이어 객체 정의
+        // 플레이어 객체 정의 (공격력 추가 및 스킬을 JSON 형식으로 묶음)
         const players = {
             kj: {
                 name: '강지',
                 hp: 120,
                 mp: 100,
-                skill1: '화염',
+                attackPower: 20,
+                skill1: { name: '화염', power: 20 },
                 skill2: '방어'
             },
             yr: {
                 name: '예리',
                 hp: 100,
                 mp: 120,
-                skill1: '얼음',
+                attackPower: 20,
+                skill1: { name: '얼음', power: 20 },
                 skill2: '치유'
             },
             sw: {
                 name: '서상',
                 hp: 110,
                 mp: 110,
-                skill1: '번개',
+                attackPower: 20,
+                skill1: { name: '번개', power: 20 },
                 skill2: '회복'
             },
             jw: {
                 name: '지우',
                 hp: 130,
                 mp: 90,
-                skill1: '바람',
+                attackPower: 20,
+                skill1: { name: '바람', power: 20 },
                 skill2: '강화'
             }
         };
@@ -100,7 +104,7 @@
                 $('#p1_name').text(players[playerKey].name);
                 $('#p1_hp').text(players[playerKey].hp);
                 $('#p1_mp').text(players[playerKey].mp);
-                $('#p1_skill1').text(players[playerKey].skill1);
+                $('#p1_skill1').text(players[playerKey].skill1.name + ' (공격력: ' + players[playerKey].skill1.power + ')');
                 $('#p1_skill2').text(players[playerKey].skill2);
                 selectedPlayers.player1 = players[playerKey]; // 선택된 플레이어 1 저장
             } else if (clickCount === 2) {
@@ -108,7 +112,7 @@
                 $('#p2_name').text(players[playerKey].name);
                 $('#p2_hp').text(players[playerKey].hp);
                 $('#p2_mp').text(players[playerKey].mp);
-                $('#p2_skill1').text(players[playerKey].skill1);
+                $('#p2_skill1').text(players[playerKey].skill1.name + ' (공격력: ' + players[playerKey].skill1.power + ')');
                 $('#p2_skill2').text(players[playerKey].skill2);
                 selectedPlayers.player2 = players[playerKey]; // 선택된 플레이어 2 저장
 
