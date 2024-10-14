@@ -233,8 +233,8 @@
                     disablePlayerButtons('#p2_attack', '#p2_skill1');
                 } else {
                     // p2의 턴일 때 p1 버튼 비활성화, p2 버튼 활성화
+                    disablePlayerButtons('#p1_attack', '#p1_skill1'); // p1의 스킬 버튼도 비활성화
                     enablePlayerButtons('#p2_attack', '#p2_skill1');
-                    disablePlayerButtons('#p1_attack', '#p1_skill1');
                 }
             }
 
