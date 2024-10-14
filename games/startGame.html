@@ -152,6 +152,7 @@
                 if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
 
                 const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
+                console.log(p2HpPercentage );
                 $('#p2_hp_bar').css('width', p2HpPercentage + '%');
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
 
@@ -168,6 +169,7 @@
                 if (selectedPlayers.player1.hp < 0) selectedPlayers.player1.hp = 0;
 
                 const p1HpPercentage = (selectedPlayers.player1.hp / p1MaxHp) * 100;
+                console.log(p1HpPercentage );
                 $('#p1_hp_bar').css('width', p1HpPercentage + '%');
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
 
