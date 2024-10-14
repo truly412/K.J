@@ -14,8 +14,7 @@
             background-color: #fff;
         }
         .highlight {
-            background-color: red; /* Background for other highlights */
-            color: white; /* Text color */
+            background-color: red;
         }
         .next-highlight-pl { /* Style for "플" */
             color: red;
@@ -43,7 +42,6 @@
         <button id="btn2">플뱅플뱅</button>
         <button id="btn3">타플뱅</button> <!-- New button for "타플뱅" -->
         <button id="btn4">플줄</button> <!-- New button for "플줄" -->
-        <button id="btn5">뱅줄</button> <!-- New button for "뱅줄" -->
         <div id="probabilities"></div> <!-- Div to show probabilities -->
     </div>
     
@@ -53,7 +51,6 @@
         const btn2 = document.getElementById('btn2');
         const btn3 = document.getElementById('btn3'); // Reference for the new button
         const btn4 = document.getElementById('btn4'); // Reference for btn4
-        const btn5 = document.getElementById('btn5'); // Reference for btn5
         const probabilitiesDiv = document.getElementById('probabilities');
 
         // Function to remove all span tags and reset to plain text
@@ -139,30 +136,27 @@
             probabilitiesDiv.innerHTML = `'${pattern}뱅' 확률 ${probabilities["뱅"].toFixed(2)}%`;
         }
 
-        // Function to calculate and display probabilities for patterns "뱅", "뱅뱅", "뱅뱅뱅", etc.
-        function highlightBangPatterns() {
+        // Function to calculate and display probabilities for patterns "플플플", "플플플플", etc.
+        function highlightMultiplePatterns() {
             const text = textDisplay.innerText;
             let results = ''; // Variable to hold the results
 
-            for (let i = 1; i <= 8; i++) { // From "뱅" to "뱅뱅뱅뱅뱅뱅뱅뱅"
-                const pattern = '뱅'.repeat(i); // Create the pattern dynamically
+            for (let i = 3; i <= 10; i++) { // From "플플플" to "플플플플플플플플플플"
+                const pattern = '플'.repeat(i); // Create the pattern dynamically
                 const totalOccurrences = (text.match(new RegExp(pattern, 'g')) || []).length;
 
-                // Highlight each "뱅" character in red
-                const highlightedPattern = `<span class="highlight">${'뱅'.repeat(i).split('').join('</span><span class="highlight">')}</span>`;
-                results += `'${highlightedPattern}' 확률: ${totalOccurrences}회<br>`;
+                results += `'${pattern}' 확률: ${totalOccurrences}회<br>`;
             }
 
             probabilitiesDiv.innerHTML = results; // Display the results in the probabilities div
         }
 
-        // Add event listeners for buttons
+        // Event listeners for the buttons
         btn1.addEventListener('click', highlightPattern1);
         btn2.addEventListener('click', highlightPattern2);
-        btn3.addEventListener('click', highlightPattern3);
-        btn4.addEventListener('click', highlightMultiplePatterns);
-        btn5.addEventListener('click', highlightBangPatterns); // Add event listener for btn5
-
+        btn3.addEventListener('click', highlightPattern3); // Add event listener for the new button
+        btn4.addEventListener('click', highlightMultiplePatterns); // Attach event listener for btn4
     </script>
+
 </body>
 </html>
