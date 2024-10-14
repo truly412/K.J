@@ -37,6 +37,14 @@
             color: white;
             padding: 10px;
             border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hp .hp-bar {
+            background-color: #28a745; /* 실제 HP 바 */
+            width: 100%;
+            height: 100%;
+            transition: width 0.5s ease; /* HP 바가 줄어드는 애니메이션 */
         }
         .mp {
             background-color: #007bff; /* 파란색 */
@@ -73,7 +81,9 @@
 ／|＼
 ／ ＼
                 </pre> <!-- 사람 모양 ASCII 아트 -->
-                <div class="hp" id="p1_hp"></div>
+                <div class="hp" id="p1_hp">
+                    <div class="hp-bar" id="p1_hp_bar"></div>
+                </div>
                 <div class="mp" id="p1_mp"></div>
             </div>
             <!-- 공격 및 스킬 버튼 추가 -->
@@ -90,7 +100,9 @@
 ／|＼
 ／ ＼
                 </pre> <!-- 사람 모양 ASCII 아트 -->
-                <div class="hp" id="p2_hp"></div>
+                <div class="hp" id="p2_hp">
+                    <div class="hp-bar" id="p2_hp_bar"></div>
+                </div>
                 <div class="mp" id="p2_mp"></div>
             </div>
             <!-- 공격 및 스킬 버튼 추가 -->
@@ -109,14 +121,34 @@
                 $('#p1_name').text(selectedPlayers.player1.name);
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                 $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
-                
+                $('#p1_hp_bar').css('width', '100%'); // HP 바를 최대치로 설정
+
                 // 플레이어 2 정보 표시
                 $('#p2_name').text(selectedPlayers.player2.name);
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
+                $('#p2_hp_bar').css('width', '100%'); // HP 바를 최대치로 설정
+
+                // 공격력 추가 (각 플레이어의 공격력 예시로 추가)
+                selectedPlayers.player1.attackPower = selectedPlayers.player1.attackPower || 20; // 기본 공격력 20
+                selectedPlayers.player2.attackPower = selectedPlayers.player2.attackPower || 20; // 기본 공격력 20
             } else {
                 console.log('선택된 플레이어 정보가 없습니다.');
             }
+
+            // p1의 공격 버튼 클릭 시 p2의 HP 감소
+            $('#p1_attack').click(function() {
+                const p2MaxHp = selectedPlayers.player2.hp;
+                selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
+                if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0; // HP가 0 이하로 떨어지지 않도록 처리
+
+                // 남은 HP를 백분율로 계산하여 HP 바 너비 조절
+                const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
+                $('#p2_hp_bar').css('width', p2HpPercentage + '%');
+
+                // 화면에 남은 HP 표시
+                $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
+            });
         };
     </script>
     <!-- jQuery를 CDN에서 포함 -->
