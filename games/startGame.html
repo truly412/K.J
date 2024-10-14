@@ -137,17 +137,12 @@
 
             // p1의 공격 버튼 클릭 시 p2의 HP 감소
             $('#p1_attack').click(function() {
-                alert(1);
                 const p2MaxHp = selectedPlayers.player2.maxHp;
                 selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
                 if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0; // HP가 0 이하로 떨어지지 않도록 처리
 
                 // 남은 HP를 백분율로 계산하여 HP 바 너비 조절
-                console.log(selectedPlayers.player1.attackPower);
-                console.log(selectedPlayers.player2.hp);
-                console.log(p2MaxHp);
                 const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
-                console.log(p2HpPercentage); 
                 $('#p2_hp_bar').css('width', p2HpPercentage + '%');
 
                 // 화면에 남은 HP 표시
