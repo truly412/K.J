@@ -178,8 +178,7 @@
 
                 // 턴을 p2로 변경
                 currentTurn = 'p2';
-                checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
-                updateTurnUI();
+                updateUI();
             });
 
             // p1의 Skill 1 클릭 시 HP 감소 및 MP 소모
@@ -210,8 +209,7 @@
 
                     // 턴을 p2로 변경
                     currentTurn = 'p2';
-                    checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
-                    updateTurnUI();
+                    updateUI();
                 }
             });
 
@@ -234,8 +232,7 @@
 
                 // 턴을 p1로 변경
                 currentTurn = 'p1';
-                checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
-                updateTurnUI();
+                updateUI();
             });
 
             // p2의 Skill 1 클릭 시 HP 감소 및 MP 소모
@@ -266,8 +263,7 @@
 
                     // 턴을 p1로 변경
                     currentTurn = 'p1';
-                    checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
-                    updateTurnUI();
+                    updateUI();
                 }
             });
 
@@ -277,31 +273,29 @@
             }
 
             // 턴에 맞게 UI 업데이트하는 함수
-            function updateTurnUI() {
+            function updateUI() {
+                // 플레이어 1 스킬 사용 가능 여부 확인
+                const p1Skill1Available = selectedPlayers.player1.mp >= selectedPlayers.player1.skill1.mpCost;
+                // 플레이어 2 스킬 사용 가능 여부 확인
+                const p2Skill1Available = selectedPlayers.player2.mp >= selectedPlayers.player2.skill1.mpCost;
+            
+                // 현재 턴에 따라 버튼 활성화/비활성화
                 if (currentTurn === 'p1') {
                     $('#p1_attack, #p1_skill1').removeClass('disabled').attr('disabled', false);
                     $('#p2_attack, #p2_skill1').addClass('disabled').attr('disabled', true);
+            
+                    // 스킬 버튼 사용 가능 여부
+                    if (!p1Skill1Available) {
+                        $('#p1_skill1').addClass('disabled').attr('disabled', true);
+                    } 
                 } else {
                     $('#p2_attack, #p2_skill1').removeClass('disabled').attr('disabled', false);
                     $('#p1_attack, #p1_skill1').addClass('disabled').attr('disabled', true);
-                }
-            }
-
-            // 스킬 사용 가능 여부 확인 함수
-            function checkSkillAvailability() {
-                const p1Skill1Available = selectedPlayers.player1.mp >= selectedPlayers.player1.skill1.mpCost;
-                const p2Skill1Available = selectedPlayers.player2.mp >= selectedPlayers.player2.skill1.mpCost;
-
-                if (!p1Skill1Available) {
-                    $('#p1_skill1').addClass('disabled').attr('disabled', true);
-                } else {
-                    $('#p1_skill1').removeClass('disabled').attr('disabled', false);
-                }
-
-                if (!p2Skill1Available) {
-                    $('#p2_skill1').addClass('disabled').attr('disabled', true);
-                } else {
-                    $('#p2_skill1').removeClass('disabled').attr('disabled', false);
+            
+                    // 스킬 버튼 사용 가능 여부
+                    if (!p2Skill1Available) {
+                        $('#p2_skill1').addClass('disabled').attr('disabled', true);
+                    } 
                 }
             }
         });
