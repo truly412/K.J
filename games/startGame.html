@@ -45,15 +45,13 @@
 <body>
     <div class="fight" id="fight">
         <div class="player" id="player1">
-            <h2>플레이어 1</h2>
-            <div id="p1_name"></div>
+            <div id="p1_name"></div> <!-- 플레이어 1 이름 -->
             <div class="hp" id="p1_hp"></div>
             <div class="mp" id="p1_mp"></div>
         </div>
 
         <div class="player" id="player2">
-            <h2>플레이어 2</h2>
-            <div id="p2_name"></div>
+            <div id="p2_name"></div> <!-- 플레이어 2 이름 -->
             <div class="hp" id="p2_hp"></div>
             <div class="mp" id="p2_mp"></div>
         </div>
@@ -65,12 +63,12 @@
             const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
             if (selectedPlayers) {
                 // 플레이어 1 정보 표시
-                $('#p1_name').text(selectedPlayers.player1.skill1); // 이름은 스킬1로 설정 (예시)
+                $('#p1_name').text(selectedPlayers.player1.name);
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                 $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
                 
                 // 플레이어 2 정보 표시
-                $('#p2_name').text(selectedPlayers.player2.skill1); // 이름은 스킬1로 설정 (예시)
+                $('#p2_name').text(selectedPlayers.player2.name);
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
             } else {
