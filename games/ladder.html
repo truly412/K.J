@@ -26,23 +26,17 @@
     <h1>Ladder Task</h1>
 
     <!-- Div to display styled text -->
-    <div id="textDisplay" contenteditable="true" placeholder="Paste 짝홀 here"></div>
+    <div id="textDisplay" contenteditable="true" placeholder="Paste 플뱅 here"></div>
 
     <!-- Anal area -->
     <div id="buttons">
-        <button id="btn1">짝짝홀</button>
-        <button id="btn2">홀짝홀짝</button>
+        <button id="btn1">플플뱅</button>
+        <button id="btn2">플뱅플뱅</button>
     </div>
     
     <script>
         const textDisplay = document.getElementById('textDisplay');
         const btn1 = document.getElementById('btn1');
-
-        // Function to validate input (only '짝' and '홀' allowed)
-        function validateInput(input) {
-            const regex = /^[짝홀\s]+$/; // Regular expression to allow only '짝' and '홀' and spaces
-            return regex.test(input);
-        }
 
         // Function to remove all span tags and reset to plain text
         function removeHighlights() {
@@ -50,11 +44,11 @@
             textDisplay.innerText = textValue;        // Set it back to the div as plain text
         }
 
-        // Function to highlight "짝짝홀" and the immediate next character in green
+        // Function to highlight "플플뱅" and the immediate next character in green
         function highlightPattern() {
             const text = textDisplay.innerText;
-            // Regular expression to match "짝짝홀" and capture the next character
-            const regex = /(짝짝홀)(.)?/g;  
+            // Regular expression to match "플플뱅" and capture the next character
+            const regex = /(플플뱅)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
                 const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
@@ -64,7 +58,7 @@
             textDisplay.innerHTML = highlightedText;
         }
 
-        // Event listener for the button to highlight "짝짝홀" and the next character
+        // Event listener for the button to highlight "플플뱅" and the next character
         btn1.addEventListener('click', highlightPattern);
     </script>
 
