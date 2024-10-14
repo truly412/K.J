@@ -51,14 +51,6 @@
             color: white;
             padding: 10px;
             border-radius: 5px;
-            position: relative;
-            overflow: hidden;
-        }
-        .mp .mp-bar {
-            background-color: #007bff;
-            width: 100%;
-            height: 100%;
-            transition: width 0.5s ease;
         }
         pre {
             font-size: 24px;
@@ -96,9 +88,7 @@
                 <div class="hp" id="p1_hp">
                     <div class="hp-bar" id="p1_hp_bar"></div>
                 </div>
-                <div class="mp" id="p1_mp">
-                    <div class="mp-bar" id="p1_mp_bar"></div>
-                </div>
+                <div class="mp" id="p1_mp"></div>
             </div>
             <button id="p1_attack">Attack</button>
             <button id="p1_skill1">Skill 1</button>
@@ -115,9 +105,7 @@
                 <div class="hp" id="p2_hp">
                     <div class="hp-bar" id="p2_hp_bar"></div>
                 </div>
-                <div class="mp" id="p2_mp">
-                    <div class="mp-bar" id="p2_mp_bar"></div>
-                </div>
+                <div class="mp" id="p2_mp"></div>
             </div>
             <button id="p2_attack">Attack</button>
             <button id="p2_skill1">Skill 1</button>
@@ -143,14 +131,12 @@
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                 $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
                 $('#p1_hp_bar').css('width', '100%');
-                $('#p1_mp_bar').css('width', '100%'); // MP 바 초기화
 
                 // 플레이어 2 정보 표시
                 $('#p2_name').text(selectedPlayers.player2.name);
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
                 $('#p2_hp_bar').css('width', '100%');
-                $('#p2_mp_bar').css('width', '100%'); // MP 바 초기화
 
                 // 초기 스킬 버튼 사용 가능 여부 확인
                 checkSkillAvailability();
@@ -170,15 +156,10 @@
                 $('#p2_hp_bar').css('width', p2HpPercentage + '%');
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
 
-                // 승리 조건 체크
-                if (selectedPlayers.player2.hp === 0) {
-                    disableAllButtons();
-                    return; // 게임 종료
-                }
-
                 // 턴을 p2로 변경
                 currentTurn = 'p2';
-                updateUI();
+                updateTurnUI();
+                checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
             });
 
             // p1의 Skill 1 클릭 시 HP 감소 및 MP 소모
@@ -197,19 +178,10 @@
                     $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                     $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
 
-                    // MP 바 업데이트
-                    const p1MpPercentage = (selectedPlayers.player1.mp / selectedPlayers.player1.maxMp) * 100;
-                    $('#p1_mp_bar').css('width', p1MpPercentage + '%'); 
-
-                    // 승리 조건 체크
-                    if (selectedPlayers.player2.hp === 0) {
-                        disableAllButtons();
-                        return; // 게임 종료
-                    }
-
                     // 턴을 p2로 변경
                     currentTurn = 'p2';
-                    updateUI();
+                    updateTurnUI();
+                    checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
                 }
             });
 
@@ -224,15 +196,10 @@
                 $('#p1_hp_bar').css('width', p1HpPercentage + '%');
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
 
-                // 승리 조건 체크
-                if (selectedPlayers.player1.hp === 0) {
-                    disableAllButtons();
-                    return; // 게임 종료
-                }
-
-                // 턴을 p1로 변경
+                // 턴을 p1으로 변경
                 currentTurn = 'p1';
-                updateUI();
+                updateTurnUI();
+                checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
             });
 
             // p2의 Skill 1 클릭 시 HP 감소 및 MP 소모
@@ -251,52 +218,57 @@
                     $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                     $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
 
-                    // MP 바 업데이트
-                    const p2MpPercentage = (selectedPlayers.player2.mp / selectedPlayers.player2.maxMp) * 100;
-                    $('#p2_mp_bar').css('width', p2MpPercentage + '%');
-
-                    // 승리 조건 체크
-                    if (selectedPlayers.player1.hp === 0) {
-                        disableAllButtons();
-                        return; // 게임 종료
-                    }
-
-                    // 턴을 p1로 변경
+                    // 턴을 p1으로 변경
                     currentTurn = 'p1';
-                    updateUI();
+                    updateTurnUI();
+                    checkSkillAvailability(); // 동작 후 스킬 사용 가능 여부 확인
                 }
             });
 
-            // 모든 버튼 비활성화 함수
-            function disableAllButtons() {
-                $('#p1_attack, #p1_skill1, #p2_attack, #p2_skill1').addClass('disabled').attr('disabled', true);
+            // 턴에 따라 버튼 활성화/비활성화 설정
+            function updateTurnUI() {
+                if (currentTurn === 'p1') {
+                    // p1의 턴일 때 p2 버튼 비활성화, p1 버튼 활성화
+                    enablePlayerButtons('#p1_attack', '#p1_skill1');
+                    disablePlayerButtons('#p2_attack', '#p2_skill1');
+                } else {
+                    // p2의 턴일 때 p1 버튼 비활성화, p2 버튼 활성화
+                    disablePlayerButtons('#p1_attack', '#p1_skill1'); // p1의 스킬 버튼도 비활성화
+                    enablePlayerButtons('#p2_attack', '#p2_skill1');
+                }
             }
 
-            // 턴에 맞게 UI 업데이트하는 함수
-            function updateUI() {
-                // 플레이어 1 스킬 사용 가능 여부 확인
-                const p1Skill1Available = selectedPlayers.player1.mp >= selectedPlayers.player1.skill1.mpCost;
-                // 플레이어 2 스킬 사용 가능 여부 확인
-                const p2Skill1Available = selectedPlayers.player2.mp >= selectedPlayers.player2.skill1.mpCost;
-            
-                // 현재 턴에 따라 버튼 활성화/비활성화
-                if (currentTurn === 'p1') {
-                    $('#p1_attack, #p1_skill1').removeClass('disabled').attr('disabled', false);
-                    $('#p2_attack, #p2_skill1').addClass('disabled').attr('disabled', true);
-            
-                    // 스킬 버튼 사용 가능 여부
-                    if (!p1Skill1Available) {
-                        $('#p1_skill1').addClass('disabled').attr('disabled', true);
-                    } 
+            // 스킬 사용 가능 여부 확인
+            function checkSkillAvailability() {
+                // p1의 스킬 사용 가능 여부 확인
+                const p1Skill1Cost = selectedPlayers.player1.skill1.mpCost;
+                if (selectedPlayers.player1.mp < p1Skill1Cost) {
+                    disablePlayerButtons('#p1_skill1');
                 } else {
-                    $('#p2_attack, #p2_skill1').removeClass('disabled').attr('disabled', false);
-                    $('#p1_attack, #p1_skill1').addClass('disabled').attr('disabled', true);
-            
-                    // 스킬 버튼 사용 가능 여부
-                    if (!p2Skill1Available) {
-                        $('#p2_skill1').addClass('disabled').attr('disabled', true);
-                    } 
+                    enablePlayerButtons('#p1_skill1');
                 }
+
+                // p2의 스킬 사용 가능 여부 확인
+                const p2Skill1Cost = selectedPlayers.player2.skill1.mpCost;
+                if (selectedPlayers.player2.mp < p2Skill1Cost) {
+                    disablePlayerButtons('#p2_skill1');
+                } else {
+                    enablePlayerButtons('#p2_skill1');
+                }
+            }
+
+            // 플레이어 버튼 활성화
+            function enablePlayerButtons(...buttons) {
+                buttons.forEach(button => {
+                    $(button).removeClass('disabled').prop('disabled', false);
+                });
+            }
+
+            // 플레이어 버튼 비활성화
+            function disablePlayerButtons(...buttons) {
+                buttons.forEach(button => {
+                    $(button).addClass('disabled').prop('disabled', true);
+                });
             }
         });
     </script>
