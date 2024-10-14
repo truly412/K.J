@@ -137,6 +137,9 @@
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
                 $('#p2_hp_bar').css('width', '100%');
+
+                // Initial check to disable skill buttons if necessary
+                checkSkillAvailability();
             }
 
             // 초기 턴에 맞게 버튼 비활성화 설정
@@ -156,6 +159,7 @@
                 // 턴을 p2로 변경
                 currentTurn = 'p2';
                 updateTurnUI();
+                checkSkillAvailability(); // Check skill availability after action
             });
 
             // p1의 Skill 1 클릭 시 HP 감소 및 MP 소모
@@ -169,7 +173,7 @@
                     // HP 및 MP 업데이트
                     const p2MaxHp = selectedPlayers.player2.maxHp;
                     if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
-                    
+
                     $('#p2_hp_bar').css('width', (selectedPlayers.player2.hp / p2MaxHp) * 100 + '%');
                     $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                     $('#p1_mp').text('MP: ' + selectedPlayers.player1.mp);
@@ -177,6 +181,7 @@
                     // 턴을 p2로 변경
                     currentTurn = 'p2';
                     updateTurnUI();
+                    checkSkillAvailability(); // Check skill availability after action
                 }
             });
 
@@ -194,6 +199,7 @@
                 // 턴을 p1으로 변경
                 currentTurn = 'p1';
                 updateTurnUI();
+                checkSkillAvailability(); // Check skill availability after action
             });
 
             // p2의 Skill 1 클릭 시 HP 감소 및 MP 소모
@@ -207,7 +213,7 @@
                     // HP 및 MP 업데이트
                     const p1MaxHp = selectedPlayers.player1.maxHp;
                     if (selectedPlayers.player1.hp < 0) selectedPlayers.player1.hp = 0;
-                    
+
                     $('#p1_hp_bar').css('width', (selectedPlayers.player1.hp / p1MaxHp) * 100 + '%');
                     $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
                     $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
@@ -215,6 +221,7 @@
                     // 턴을 p1으로 변경
                     currentTurn = 'p1';
                     updateTurnUI();
+                    checkSkillAvailability(); // Check skill availability after action
                 }
             });
 
@@ -228,6 +235,25 @@
                     // p2의 턴일 때 p1 버튼 비활성화, p2 버튼 활성화
                     enablePlayerButtons('#p2_attack', '#p2_skill1');
                     disablePlayerButtons('#p1_attack', '#p1_skill1');
+                }
+            }
+
+            // 스킬 사용 가능 여부 확인
+            function checkSkillAvailability() {
+                // p1의 스킬 사용 가능 여부 확인
+                const p1Skill1Cost = selectedPlayers.player1.skill1.mpCost;
+                if (selectedPlayers.player1.mp < p1Skill1Cost) {
+                    disablePlayerButtons('#p1_skill1');
+                } else {
+                    enablePlayerButtons('#p1_skill1');
+                }
+
+                // p2의 스킬 사용 가능 여부 확인
+                const p2Skill1Cost = selectedPlayers.player2.skill1.mpCost;
+                if (selectedPlayers.player2.mp < p2Skill1Cost) {
+                    disablePlayerButtons('#p2_skill1');
+                } else {
+                    enablePlayerButtons('#p2_skill1');
                 }
             }
 
