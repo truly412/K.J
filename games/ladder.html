@@ -32,7 +32,7 @@
     <p id="validationMessage" style="color: red; display: none;">Invalid input! Only '짝' and '홀' are allowed.</p>
 
     <!-- Anal area -->
-    <br>------------------------------------------------------------------------------------------<br>
+    ------------------------------------------------------------------------------------------
     <button id="btn1">짝짝홀</button>
 
     <script>
@@ -47,6 +47,12 @@
         function validateInput(input) {
             const regex = /^[짝홀\s]+$/; // Regular expression to allow only '짝' and '홀' and spaces
             return regex.test(input);
+        }
+
+        // Function to remove all span tags and reset to plain text
+        function removeHighlights() {
+            const textValue = textDisplay.innerText;  // Get the plain text without HTML tags
+            textDisplay.innerText = textValue;        // Set it back to the div as plain text
         }
 
         // Function to handle saving and editing
@@ -68,8 +74,9 @@
                     saveEditBtn.textContent = 'Edit';
                     isEditing = false;
                 } else {
-                    // Enable editing in textarea
+                    // Enable editing and remove highlights
                     textDisplay.setAttribute('contenteditable', 'true');
+                    removeHighlights(); // Reset any highlights
                     textDisplay.focus();
                     saveEditBtn.textContent = 'Save';
                     isEditing = true;
