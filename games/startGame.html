@@ -92,7 +92,6 @@
             </div>
             <button id="p1_attack">Attack</button>
             <button id="p1_skill1">Skill 1</button>
-            <button id="p1_skill2">Skill 2</button>
         </div>
 
         <div class="clickBoard" id="board2">
@@ -110,7 +109,6 @@
             </div>
             <button id="p2_attack">Attack</button>
             <button id="p2_skill1">Skill 1</button>
-            <button id="p2_skill2">Skill 2</button>
         </div>
     </div>
 
@@ -204,12 +202,12 @@
             function updateTurnUI() {
                 if (currentTurn === 'p1') {
                     // p1의 턴일 때 p2 버튼 비활성화, p1 버튼 활성화
-                    enablePlayerButtons('#p1_attack', '#p1_skill1', '#p1_skill2');
-                    disablePlayerButtons('#p2_attack', '#p2_skill1', '#p2_skill2');
+                    enablePlayerButtons('#p1_attack', '#p1_skill1');
+                    disablePlayerButtons('#p2_attack', '#p2_skill1');
                 } else {
                     // p2의 턴일 때 p1 버튼 비활성화, p2 버튼 활성화
-                    enablePlayerButtons('#p2_attack', '#p2_skill1', '#p2_skill2');
-                    disablePlayerButtons('#p1_attack', '#p1_skill1', '#p1_skill2');
+                    enablePlayerButtons('#p2_attack', '#p2_skill1');
+                    disablePlayerButtons('#p1_attack', '#p1_skill1');
                 }
             }
 
