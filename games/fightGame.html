@@ -93,32 +93,32 @@
                 hp: 120,
                 mp: 100,
                 attackPower: 20,
-                skill1: { name: '화염', power: 20 },
-                skill2: '방어'
+                skill1: { name: '화염', power: 20, mpCost: 10 }, // MP 소모량 추가
+                skill2: { name: '방어', power: 0, mpCost: 5 } // MP 소모량 추가
             },
             yr: {
                 name: '예리',
                 hp: 100,
                 mp: 120,
                 attackPower: 20,
-                skill1: { name: '얼음', power: 20 },
-                skill2: '치유'
+                skill1: { name: '얼음', power: 20, mpCost: 15 }, // MP 소모량 추가
+                skill2: { name: '치유', power: 30, mpCost: 20 } // MP 소모량 추가
             },
             sw: {
                 name: '서상',
                 hp: 110,
                 mp: 110,
                 attackPower: 20,
-                skill1: { name: '번개', power: 20 },
-                skill2: '회복'
+                skill1: { name: '번개', power: 20, mpCost: 12 }, // MP 소모량 추가
+                skill2: { name: '회복', power: 25, mpCost: 18 } // MP 소모량 추가
             },
             jw: {
                 name: '지우',
                 hp: 130,
                 mp: 90,
                 attackPower: 20,
-                skill1: { name: '바람', power: 20 },
-                skill2: '강화'
+                skill1: { name: '바람', power: 20, mpCost: 10 }, // MP 소모량 추가
+                skill2: { name: '강화', power: 15, mpCost: 8 } // MP 소모량 추가
             }
         };
 
@@ -136,8 +136,8 @@
                 $('#p1_hp').text(players[playerKey].hp);
                 $('#p1_mp').text(players[playerKey].mp);
                 $('#p1_attackPower').text(players[playerKey].attackPower);
-                $('#p1_skill1').text(players[playerKey].skill1.name + ' (공격력: ' + players[playerKey].skill1.power + ')');
-                $('#p1_skill2').text(players[playerKey].skill2);
+                $('#p1_skill1').text(players[playerKey].skill1.name + ' (공격력: ' + players[playerKey].skill1.power + ', MP 소모: ' + players[playerKey].skill1.mpCost + ')');
+                $('#p1_skill2').text(players[playerKey].skill2.name + ' (공격력: ' + players[playerKey].skill2.power + ', MP 소모: ' + players[playerKey].skill2.mpCost + ')');
                 selectedPlayers.player1 = players[playerKey]; // 선택된 플레이어 1 저장
             } else if (clickCount === 2) {
                 // 두 번째 클릭: 플레이어 2 설정
@@ -145,8 +145,8 @@
                 $('#p2_hp').text(players[playerKey].hp);
                 $('#p2_mp').text(players[playerKey].mp);
                 $('#p2_attackPower').text(players[playerKey].attackPower);
-                $('#p2_skill1').text(players[playerKey].skill1.name + ' (공격력: ' + players[playerKey].skill1.power + ')');
-                $('#p2_skill2').text(players[playerKey].skill2);
+                $('#p2_skill1').text(players[playerKey].skill1.name + ' (공격력: ' + players[playerKey].skill1.power + ', MP 소모: ' + players[playerKey].skill1.mpCost + ')');
+                $('#p2_skill2').text(players[playerKey].skill2.name + ' (공격력: ' + players[playerKey].skill2.power + ', MP 소모: ' + players[playerKey].skill2.mpCost + ')');
                 selectedPlayers.player2 = players[playerKey]; // 선택된 플레이어 2 저장
 
                 $('#startButton').show(); // 시작 버튼 표시
