@@ -17,7 +17,7 @@
         .fight {
             display: flex; /* Flexbox 사용하여 좌우 배치 */
             justify-content: space-around; /* 공간을 균등하게 배분 */
-            width: 100%; /* 전체 너비의 80% 사용 */
+            width: 80%; /* 전체 너비의 80% 사용 */
             max-width: 800px; /* 최대 너비 설정 */
             margin: 20px auto; /* 가운데 정렬 및 상하 여백 추가 */
         }
@@ -43,6 +43,7 @@
         pre {
             font-size: 24px; /* ASCII 아트의 크기 조정 */
             margin: 10px 0; /* 상하 여백 추가 */
+            line-height: 1; /* 줄 간격 조정 */
         }
     </style>
 </head>
@@ -61,11 +62,6 @@
 
         <div class="player" id="player2">
             <div id="p2_name"></div> <!-- 플레이어 2 이름 -->
-            <pre>
- o
-/|\
-/ \
-            </pre> <!-- 사람 모양 ASCII 아트 -->
             <div class="hp" id="p2_hp"></div>
             <div class="mp" id="p2_mp"></div>
         </div>
@@ -93,3 +89,4 @@
     <!-- jQuery를 CDN에서 포함 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
+</html>
