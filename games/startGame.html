@@ -1,1 +1,20 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Start</title>
+    <script>
+        // 페이지 로드 시 선택된 플레이어 정보 가져오기
+        window.onload = function() {
+            const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
+            console.log(selectedPlayers); // 선택된 플레이어 정보를 콘솔에 출력
+            // 필요한 추가 로직을 여기에 작성
+        };
+    </script>
+</head>
+<body>
+    <h1>게임 시작!</h1>
+    <!-- 추가적인 게임 시작 로직 -->
+</body>
+</html>
