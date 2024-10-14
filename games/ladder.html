@@ -1,32 +1,113 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사다리 게임</title>
-    <style>
-        canvas {
-            border: 1px solid black;
-        }
-        .buttons {
-            margin-top: 10px;
-        }
-        button {
-            margin-right: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사다리 게임</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #ladder-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      position: relative;
+    }
+    .ladder {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 300px;
+      width: 80px;
+      position: relative;
+    }
+    .line {
+      width: 5px;
+      height: 100%;
+      background-color: black;
+      margin: 0 20px;
+      position: relative;
+    }
+    .step {
+      position: absolute;
+      height: 5px;
+      width: 60px;
+      background-color: red;
+    }
+    .start-button {
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 24px;
+      color: blue;
+    }
+  </style>
 </head>
 <body>
-    <h1>사다리 게임</h1>
-    <canvas id="ladderCanvas" width="500" height="500"></canvas>
-    
-    <div class="buttons">
-        <button onclick="startGame(0)">1</button>
-        <button onclick="startGame(1)">2</button>
-        <button onclick="startGame(2)">3</button>
-        <button onclick="startGame(3)">4</button>
-    </div>
 
-    <script src="./ladder.js"></script>
+<h1>사다리 게임</h1>
+
+<div id="ladder-container">
+  <div class="ladder" id="ladder-1">
+    <div class="line"></div>
+  </div>
+  <div class="ladder" id="ladder-2">
+    <div class="line"></div>
+  </div>
+  <div class="ladder" id="ladder-3">
+    <div class="line"></div>
+  </div>
+  <div class="ladder" id="ladder-4">
+    <div class="line"></div>
+  </div>
+</div>
+
+<div>
+  <button class="start-button" onclick="startLadder(1)">1</button>
+  <button class="start-button" onclick="startLadder(2)">2</button>
+  <button class="start-button" onclick="startLadder(3)">3</button>
+  <button class="start-button" onclick="startLadder(4)">4</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+  // 사다리 경로를 랜덤으로 생성하는 함수
+  function generateSteps(ladderId) {
+    const ladder = document.getElementById('ladder-' + ladderId);
+    ladder.innerHTML = '<div class="line"></div>';  // 기존 경로 초기화
+
+    // 임의의 경로(가로 줄)를 추가
+    for (let i = 0; i < 5; i++) {
+      const randomPosition = Math.random() * 250; // 300px 내 임의의 위치
+      const step = document.createElement('div');
+      step.className = 'step';
+      step.style.top = randomPosition + 'px';
+      ladder.appendChild(step);
+    }
+  }
+
+  // 게임을 시작하는 함수
+  function startLadder(startPoint) {
+    // 각 사다리의 경로를 랜덤으로 생성
+    for (let i = 1; i <= 4; i++) {
+      generateSteps(i);
+    }
+
+    // 사다리 게임의 결과 결정 (여기서는 간단히 랜덤 종료점 생성)
+    const randomEndPoint = Math.floor(Math.random() * 4) + 1;
+
+    // 결과를 표시
+    document.getElementById('result').textContent = 
+      `시작점 ${startPoint}에서 출발하여 종료점 ${randomEndPoint}에 도착했습니다!`;
+  }
+</script>
+
 </body>
 </html>
