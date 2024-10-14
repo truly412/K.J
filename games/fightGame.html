@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fight Game</title>
     <style>
-        /* Basic styling for the game layout */
+        /* 게임 레이아웃의 기본 스타일 */
         #fight {
             display: flex;
             justify-content: space-around;
@@ -19,62 +19,84 @@
             margin: 5px;
         }
     </style>
-    <!-- Include jQuery from a CDN -->
+    <!-- jQuery를 CDN에서 포함 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div id="fight">
         <div id="1p">
-            <strong>Player 1:</strong><br>
+            <strong>플레이어 1:</strong><br>
             HP: <span id="p1_hp"></span><br>
             MP: <span id="p1_mp"></span><br>
-            Skill 1: <span id="p1_skill1"></span><br>
-            Skill 2: <span id="p1_skill2"></span>
+            스킬 1: <span id="p1_skill1"></span><br>
+            스킬 2: <span id="p1_skill2"></span>
         </div>
         <div id="2p">
-            <strong>Player 2:</strong><br>
+            <strong>플레이어 2:</strong><br>
             HP: <span id="p2_hp"></span><br>
             MP: <span id="p2_mp"></span><br>
-            Skill 1: <span id="p2_skill1"></span><br>
-            Skill 2: <span id="p2_skill2"></span>
+            스킬 1: <span id="p2_skill1"></span><br>
+            스킬 2: <span id="p2_skill2"></span>
         </div>
     </div>
 
     <div id="selectPlayerArea">
-        <button id="kj">강지</button>
-        <button id="yr">예리</button>
+        <button class="player-btn" data-player="kj">강지</button>
+        <button class="player-btn" data-player="yr">예리</button>
+        <button class="player-btn" data-player="p3">플레이어 3</button>
+        <button class="player-btn" data-player="p4">플레이어 4</button>
     </div>
     
     <script>
-        // Define the player object using JSON format
-        const kj = {
-            hp: 120,
-            mp: 100,
-            skill1: 'fire',
-            skill2: 'defense'
+        // 플레이어 객체 정의
+        const players = {
+            kj: {
+                hp: 120,
+                mp: 100,
+                skill1: '화염',
+                skill2: '방어'
+            },
+            yr: {
+                hp: 100,
+                mp: 120,
+                skill1: '얼음',
+                skill2: '치유'
+            },
+            p3: {
+                hp: 110,
+                mp: 110,
+                skill1: '번개',
+                skill2: '회복'
+            },
+            p4: {
+                hp: 130,
+                mp: 90,
+                skill1: '바람',
+                skill2: '강화'
+            }
         };
 
-        const yr = {
-            hp: 100,
-            mp: 120,
-            skill1: 'ice',
-            skill2: 'heal'
-        };
+        let clickCount = 0; // 클릭 횟수 추적
 
-        // jQuery event listener for the 강지 button
-        $('#kj').click(function() {
-            $('#p1_hp').text(kj.hp);
-            $('#p1_mp').text(kj.mp);
-            $('#p1_skill1').text(kj.skill1);
-            $('#p1_skill2').text(kj.skill2);
-        });
+        // jQuery를 사용한 버튼 클릭 이벤트 리스너
+        $('.player-btn').click(function() {
+            const playerKey = $(this).data('player'); // 클릭한 버튼의 데이터 속성 가져오기
+            clickCount++;
 
-        // jQuery event listener for the 예리 button
-        $('#yr').click(function() {
-            $('#p2_hp').text(yr.hp);
-            $('#p2_mp').text(yr.mp);
-            $('#p2_skill1').text(yr.skill1);
-            $('#p2_skill2').text(yr.skill2);
+            if (clickCount === 1) {
+                // 첫 번째 클릭: 플레이어 1 설정
+                $('#p1_hp').text(players[playerKey].hp);
+                $('#p1_mp').text(players[playerKey].mp);
+                $('#p1_skill1').text(players[playerKey].skill1);
+                $('#p1_skill2').text(players[playerKey].skill2);
+            } else if (clickCount === 2) {
+                // 두 번째 클릭: 플레이어 2 설정
+                $('#p2_hp').text(players[playerKey].hp);
+                $('#p2_mp').text(players[playerKey].mp);
+                $('#p2_skill1').text(players[playerKey].skill1);
+                $('#p2_skill2').text(players[playerKey].skill2);
+                clickCount = 0; // 클릭 카운트 초기화
+            }
         });
     </script>
 </body>
