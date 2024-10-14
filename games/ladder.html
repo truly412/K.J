@@ -52,7 +52,7 @@
         const btn2 = document.getElementById('btn2');
         const btn3 = document.getElementById('btn3'); // Reference for the new button
         const btn4 = document.getElementById('btn4'); // Reference for btn4
-        const btn5 = document.getElementById('btn5'); // Reference for btn4
+        const btn5 = document.getElementById('btn5'); // Reference for btn5
         const probabilitiesDiv = document.getElementById('probabilities');
 
         // Function to remove all span tags and reset to plain text
@@ -64,52 +64,58 @@
         // Function to highlight "플플" and the immediate next character in green
         function highlightPattern1() {
             const text = textDisplay.innerText;
-            // Regular expression to match "플플" and capture the next character
             const regex = /(플플)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
                 const nextChar = p2 ? `<span class="next-highlight-${p2 === '플' ? 'pl' : 'bn'}">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
-            // Replace inner HTML of the div with highlighted text
             textDisplay.innerHTML = highlightedText;
-
-            // Calculate and display probabilities
             calculateProbabilities(text, '플플');
         }
 
         // Function to highlight "플뱅플" and the immediate next character in green
         function highlightPattern2() {
             const text = textDisplay.innerText;
-            // Regular expression to match "플뱅플" and capture the next character
             const regex = /(플뱅플)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
                 const nextChar = p2 ? `<span class="next-highlight-${p2 === '플' ? 'pl' : 'bn'}">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
-            // Replace inner HTML of the div with highlighted text
             textDisplay.innerHTML = highlightedText;
-
-            // Calculate and display probabilities
             calculateProbabilities(text, '플뱅플');
         }
 
         // Function to highlight "타플" and the immediate next character in green
         function highlightPattern3() {
             const text = textDisplay.innerText;
-            // Regular expression to match "타플" and capture the next character
             const regex = /(타플)(.)?/g;  
             const highlightedText = text.replace(regex, (match, p1, p2) => {
                 const nextChar = p2 ? `<span class="next-highlight-${p2 === '플' ? 'pl' : 'bn'}">${p2}</span>` : '';
                 return `<span class="highlight">${p1}</span>${nextChar}`;
             });
 
-            // Replace inner HTML of the div with highlighted text
             textDisplay.innerHTML = highlightedText;
-
-            // Calculate and display probabilities
             calculateProbabilities(text, '타플');
+        }
+
+        // Function to highlight all occurrences of "플" in red
+        function highlightAllPl() {
+            const text = textDisplay.innerText;
+            const regex = /플/g; // Regular expression to match all occurrences of "플"
+            const highlightedText = text.replace(regex, '<span class="highlight">플</span>'); // Highlight "플"
+
+            textDisplay.innerHTML = highlightedText; // Update the text area with highlighted text
+        }
+
+        // Function to highlight all occurrences of "뱅" in red
+        function highlightAllBn() {
+            const text = textDisplay.innerText;
+            const regex = /뱅/g; // Regular expression to match all occurrences of "뱅"
+            const highlightedText = text.replace(regex, '<span class="highlight">뱅</span>'); // Highlight "뱅"
+
+            textDisplay.innerHTML = highlightedText; // Update the text area with highlighted text
         }
 
         // Function to calculate probabilities of "플" and "뱅"
@@ -172,8 +178,8 @@
         btn1.addEventListener('click', highlightPattern1);
         btn2.addEventListener('click', highlightPattern2);
         btn3.addEventListener('click', highlightPattern3); // Add event listener for the new button
-        btn4.addEventListener('click', highlightPlePatterns); // Attach event listener for btn4
-        btn5.addEventListener('click', highlightBangPatterns); // Attach event listener for btn5
+        btn4.addEventListener('click', highlightAllPl); // Attach event listener for btn4
+        btn5.addEventListener('click', highlightAllBn); // Attach event listener for btn5
     </script>
 
 </body>
