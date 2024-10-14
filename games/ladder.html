@@ -36,6 +36,7 @@
     <div id="buttons">
         <button id="btn1">플플뱅</button>
         <button id="btn2">플뱅플뱅</button>
+        <button id="btn3">타플뱅</button> <!-- New button for "타플뱅" -->
         <div id="probabilities"></div> <!-- Div to show probabilities -->
     </div>
     
@@ -43,6 +44,7 @@
         const textDisplay = document.getElementById('textDisplay');
         const btn1 = document.getElementById('btn1');
         const btn2 = document.getElementById('btn2');
+        const btn3 = document.getElementById('btn3'); // Reference for the new button
         const probabilitiesDiv = document.getElementById('probabilities');
 
         // Function to remove all span tags and reset to plain text
@@ -85,6 +87,23 @@
             calculateProbabilities(text, '플뱅플뱅');
         }
 
+        // Function to highlight "타플뱅" and the immediate next character in green
+        function highlightPattern3() {
+            const text = textDisplay.innerText;
+            // Regular expression to match "타플뱅" and capture the next character
+            const regex = /(타플뱅)(.)?/g;  
+            const highlightedText = text.replace(regex, (match, p1, p2) => {
+                const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
+                return `<span class="highlight">${p1}</span>${nextChar}`;
+            });
+
+            // Replace inner HTML of the div with highlighted text
+            textDisplay.innerHTML = highlightedText;
+
+            // Calculate and display probabilities
+            calculateProbabilities(text, '타플뱅');
+        }
+
         // Function to calculate probabilities of "플" and "뱅"
         function calculateProbabilities(text, pattern) {
             const totalOccurrences = (text.match(new RegExp(pattern, 'g')) || []).length;
@@ -116,6 +135,7 @@
         // Event listeners for the buttons
         btn1.addEventListener('click', highlightPattern1);
         btn2.addEventListener('click', highlightPattern2);
+        btn3.addEventListener('click', highlightPattern3); // Add event listener for the new button
     </script>
 
 </body>
