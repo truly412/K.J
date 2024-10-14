@@ -8,13 +8,25 @@
         canvas {
             border: 1px solid black;
         }
+        .buttons {
+            margin-top: 10px;
+        }
+        button {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>사다리 게임</h1>
     <canvas id="ladderCanvas" width="500" height="500"></canvas>
-    <button onclick="startGame()">게임 시작</button>
+    
+    <div class="buttons">
+        <button onclick="startGame(0)">1</button>
+        <button onclick="startGame(1)">2</button>
+        <button onclick="startGame(2)">3</button>
+        <button onclick="startGame(3)">4</button>
+    </div>
 
-    <script src="./ladder.js"></script>
+    <script src="ladder.js"></script>
 </body>
 </html>
