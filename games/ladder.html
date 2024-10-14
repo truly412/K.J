@@ -19,6 +19,10 @@
         .next-highlight {
             background-color: green;
         }
+        #probabilities {
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -31,12 +35,13 @@
     <!-- Anal area -->
     <div id="buttons">
         <button id="btn1">플플뱅</button>
-        <button id="btn2">플뱅플뱅</button>
+        <div id="probabilities"></div> <!-- Div to show probabilities -->
     </div>
     
     <script>
         const textDisplay = document.getElementById('textDisplay');
         const btn1 = document.getElementById('btn1');
+        const probabilitiesDiv = document.getElementById('probabilities');
 
         // Function to remove all span tags and reset to plain text
         function removeHighlights() {
@@ -56,6 +61,36 @@
 
             // Replace inner HTML of the div with highlighted text
             textDisplay.innerHTML = highlightedText;
+
+            // Calculate and display probabilities
+            calculateProbabilities(text);
+        }
+
+        // Function to calculate probabilities of "플" and "뱅"
+        function calculateProbabilities(text) {
+            const totalOccurrences = (text.match(/플플뱅/g) || []).length;
+            const nextCharCount = {};
+
+            const regex = /플플뱅(.)/g;
+            let match;
+            while ((match = regex.exec(text)) !== null) {
+                const nextChar = match[1];
+                nextCharCount[nextChar] = (nextCharCount[nextChar] || 0) + 1;
+            }
+
+            const probabilities = {
+                "플": 0,
+                "뱅": 0
+            };
+
+            if (totalOccurrences > 0) {
+                probabilities["플"] = ((nextCharCount["플"] || 0) / totalOccurrences) * 100;
+                probabilities["뱅"] = ((nextCharCount["뱅"] || 0) / totalOccurrences) * 100;
+            }
+
+            // Display probabilities
+            probabilitiesDiv.innerHTML = `Probability of '플' following '플플뱅': ${probabilities["플"].toFixed(2)}%<br>
+            Probability of '뱅' following '플플뱅': ${probabilities["뱅"].toFixed(2)}%`;
         }
 
         // Event listener for the button to highlight "플플뱅" and the next character
