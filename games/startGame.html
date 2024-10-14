@@ -114,12 +114,15 @@
         </div>
     </div>
 
+    <!-- jQuery를 CDN에서 포함 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
-        // 현재 턴을 추적하는 변수
-        let currentTurn = 'p1'; // 처음에는 p1의 턴
+        $(document).ready(function() {
+            // 현재 턴을 추적하는 변수
+            let currentTurn = 'p1'; // 처음에는 p1의 턴
 
-        // 페이지 로드 시 플레이어 정보 가져오기
-        window.onload = function() {
+            // 페이지 로드 시 플레이어 정보 가져오기
             const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
             if (selectedPlayers) {
                 selectedPlayers.player1.maxHp = selectedPlayers.player1.hp;
@@ -140,70 +143,66 @@
 
             // 초기 턴에 맞게 버튼 비활성화 설정
             updateTurnUI();
-        };
 
-        // p1의 공격 버튼 클릭 시 p2의 HP 감소
-        $('#p1_attack').click(function() {
-            if (currentTurn !== 'p1') return; // p1의 턴이 아니면 아무 동작도 하지 않음
-            const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
-            const p2MaxHp = selectedPlayers.player2.maxHp;
-            selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
-            if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
+            // p1의 공격 버튼 클릭 시 p2의 HP 감소
+            $('#p1_attack').click(function() {
+                if (currentTurn !== 'p1') return; // p1의 턴이 아니면 아무 동작도 하지 않음
+                const p2MaxHp = selectedPlayers.player2.maxHp;
+                selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
+                if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0;
 
-            const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
-            $('#p2_hp_bar').css('width', p2HpPercentage + '%');
-            $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
+                const p2HpPercentage = (selectedPlayers.player2.hp / p2MaxHp) * 100;
+                $('#p2_hp_bar').css('width', p2HpPercentage + '%');
+                $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
 
-            // 턴을 p2로 변경
-            currentTurn = 'p2';
-            updateTurnUI();
-        });
+                // 턴을 p2로 변경
+                currentTurn = 'p2';
+                updateTurnUI();
+            });
 
-        // p2의 공격 버튼 클릭 시 p1의 HP 감소
-        $('#p2_attack').click(function() {
-            if (currentTurn !== 'p2') return; // p2의 턴이 아니면 아무 동작도 하지 않음
-            const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
-            const p1MaxHp = selectedPlayers.player1.maxHp;
-            selectedPlayers.player1.hp -= selectedPlayers.player2.attackPower;
-            if (selectedPlayers.player1.hp < 0) selectedPlayers.player1.hp = 0;
+            // p2의 공격 버튼 클릭 시 p1의 HP 감소
+            $('#p2_attack').click(function() {
+                if (currentTurn !== 'p2') return; // p2의 턴이 아니면 아무 동작도 하지 않음
+                const p1MaxHp = selectedPlayers.player1.maxHp;
+                selectedPlayers.player1.hp -= selectedPlayers.player2.attackPower;
+                if (selectedPlayers.player1.hp < 0) selectedPlayers.player1.hp = 0;
 
-            const p1HpPercentage = (selectedPlayers.player1.hp / p1MaxHp) * 100;
-            $('#p1_hp_bar').css('width', p1HpPercentage + '%');
-            $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
+                const p1HpPercentage = (selectedPlayers.player1.hp / p1MaxHp) * 100;
+                $('#p1_hp_bar').css('width', p1HpPercentage + '%');
+                $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
 
-            // 턴을 p1으로 변경
-            currentTurn = 'p1';
-            updateTurnUI();
-        });
+                // 턴을 p1으로 변경
+                currentTurn = 'p1';
+                updateTurnUI();
+            });
 
-        // 턴에 따라 버튼 활성화/비활성화 설정
-        function updateTurnUI() {
-            if (currentTurn === 'p1') {
-                // p1의 턴일 때 p2 버튼 비활성화, p1 버튼 활성화
-                enablePlayerButtons('#p1_attack', '#p1_skill1', '#p1_skill2');
-                disablePlayerButtons('#p2_attack', '#p2_skill1', '#p2_skill2');
-            } else {
-                // p2의 턴일 때 p1 버튼 비활성화, p2 버튼 활성화
-                enablePlayerButtons('#p2_attack', '#p2_skill1', '#p2_skill2');
-                disablePlayerButtons('#p1_attack', '#p1_skill1', '#p1_skill2');
+            // 턴에 따라 버튼 활성화/비활성화 설정
+            function updateTurnUI() {
+                if (currentTurn === 'p1') {
+                    // p1의 턴일 때 p2 버튼 비활성화, p1 버튼 활성화
+                    enablePlayerButtons('#p1_attack', '#p1_skill1', '#p1_skill2');
+                    disablePlayerButtons('#p2_attack', '#p2_skill1', '#p2_skill2');
+                } else {
+                    // p2의 턴일 때 p1 버튼 비활성화, p2 버튼 활성화
+                    enablePlayerButtons('#p2_attack', '#p2_skill1', '#p2_skill2');
+                    disablePlayerButtons('#p1_attack', '#p1_skill1', '#p1_skill2');
+                }
             }
-        }
 
-        // 플레이어 버튼 활성화
-        function enablePlayerButtons(...buttons) {
-            buttons.forEach(button => {
-                $(button).removeClass('disabled').prop('disabled', false);
-            });
-        }
+            // 플레이어 버튼 활성화
+            function enablePlayerButtons(...buttons) {
+                buttons.forEach(button => {
+                    $(button).removeClass('disabled').prop('disabled', false);
+                });
+            }
 
-        // 플레이어 버튼 비활성화
-        function disablePlayerButtons(...buttons) {
-            buttons.forEach(button => {
-                $(button).addClass('disabled').prop('disabled', true);
-            });
-        }
+            // 플레이어 버튼 비활성화
+            function disablePlayerButtons(...buttons) {
+                buttons.forEach(button => {
+                    $(button).addClass('disabled').prop('disabled', true);
+                });
+            }
+        });
     </script>
-    <!-- jQuery를 CDN에서 포함 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
