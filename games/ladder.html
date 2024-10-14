@@ -35,12 +35,14 @@
     <!-- Anal area -->
     <div id="buttons">
         <button id="btn1">플플뱅</button>
+        <button id="btn2">플뱅플뱅</button>
         <div id="probabilities"></div> <!-- Div to show probabilities -->
     </div>
     
     <script>
         const textDisplay = document.getElementById('textDisplay');
         const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
         const probabilitiesDiv = document.getElementById('probabilities');
 
         // Function to remove all span tags and reset to plain text
@@ -50,7 +52,7 @@
         }
 
         // Function to highlight "플플뱅" and the immediate next character in green
-        function highlightPattern() {
+        function highlightPattern1() {
             const text = textDisplay.innerText;
             // Regular expression to match "플플뱅" and capture the next character
             const regex = /(플플뱅)(.)?/g;  
@@ -63,15 +65,32 @@
             textDisplay.innerHTML = highlightedText;
 
             // Calculate and display probabilities
-            calculateProbabilities(text);
+            calculateProbabilities(text, '플플뱅');
+        }
+
+        // Function to highlight "플뱅플뱅" and the immediate next character in green
+        function highlightPattern2() {
+            const text = textDisplay.innerText;
+            // Regular expression to match "플뱅플뱅" and capture the next character
+            const regex = /(플뱅플뱅)(.)?/g;  
+            const highlightedText = text.replace(regex, (match, p1, p2) => {
+                const nextChar = p2 ? `<span class="next-highlight">${p2}</span>` : '';
+                return `<span class="highlight">${p1}</span>${nextChar}`;
+            });
+
+            // Replace inner HTML of the div with highlighted text
+            textDisplay.innerHTML = highlightedText;
+
+            // Calculate and display probabilities
+            calculateProbabilities(text, '플뱅플뱅');
         }
 
         // Function to calculate probabilities of "플" and "뱅"
-        function calculateProbabilities(text) {
-            const totalOccurrences = (text.match(/플플뱅/g) || []).length;
+        function calculateProbabilities(text, pattern) {
+            const totalOccurrences = (text.match(new RegExp(pattern, 'g')) || []).length;
             const nextCharCount = {};
 
-            const regex = /플플뱅(.)/g;
+            const regex = new RegExp(`${pattern}(.)`, 'g');
             let match;
             while ((match = regex.exec(text)) !== null) {
                 const nextChar = match[1];
@@ -89,12 +108,13 @@
             }
 
             // Display probabilities
-            probabilitiesDiv.innerHTML = `Probability of '플' following '플플뱅': ${probabilities["플"].toFixed(2)}%<br>
-            Probability of '뱅' following '플플뱅': ${probabilities["뱅"].toFixed(2)}%`;
+            probabilitiesDiv.innerHTML = `Probability of '플' following '${pattern}': ${probabilities["플"].toFixed(2)}%<br>
+            Probability of '뱅' following '${pattern}': ${probabilities["뱅"].toFixed(2)}%`;
         }
 
-        // Event listener for the button to highlight "플플뱅" and the next character
-        btn1.addEventListener('click', highlightPattern);
+        // Event listeners for the buttons
+        btn1.addEventListener('click', highlightPattern1);
+        btn2.addEventListener('click', highlightPattern2);
     </script>
 
 </body>
