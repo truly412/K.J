@@ -117,6 +117,9 @@
         window.onload = function() {
             const selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
             if (selectedPlayers) {
+                selectedPlayers.player1.maxHp = selectedPlayers.player1.hp; // 플레이어 1의 최대 HP
+                selectedPlayers.player2.maxHp = selectedPlayers.player2.hp; // 플레이어 2의 최대 HP
+
                 // 플레이어 1 정보 표시
                 $('#p1_name').text(selectedPlayers.player1.name);
                 $('#p1_hp').text('HP: ' + selectedPlayers.player1.hp);
@@ -128,17 +131,13 @@
                 $('#p2_hp').text('HP: ' + selectedPlayers.player2.hp);
                 $('#p2_mp').text('MP: ' + selectedPlayers.player2.mp);
                 $('#p2_hp_bar').css('width', '100%'); // HP 바를 최대치로 설정
-
-                // 공격력 추가 (각 플레이어의 공격력 예시로 추가)
-                selectedPlayers.player1.attackPower = selectedPlayers.player1.attackPower || 20; // 기본 공격력 20
-                selectedPlayers.player2.attackPower = selectedPlayers.player2.attackPower || 20; // 기본 공격력 20
             } else {
                 console.log('선택된 플레이어 정보가 없습니다.');
             }
 
             // p1의 공격 버튼 클릭 시 p2의 HP 감소
             $('#p1_attack').click(function() {
-                const p2MaxHp = selectedPlayers.player2.hp;
+                const p2MaxHp = selectedPlayers.player2.maxHp;
                 selectedPlayers.player2.hp -= selectedPlayers.player1.attackPower;
                 if (selectedPlayers.player2.hp < 0) selectedPlayers.player2.hp = 0; // HP가 0 이하로 떨어지지 않도록 처리
 
