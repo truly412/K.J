@@ -30,14 +30,14 @@
 <body>
     <div id="fight">
         <div id="1p">
-            <strong>플레이어 1:</strong><br>
+            <strong>플레이어 1:<span id="p1_name"></span></strong><br>
             HP: <span id="p1_hp"></span><br>
             MP: <span id="p1_mp"></span><br>
             스킬 1: <span id="p1_skill1"></span><br>
             스킬 2: <span id="p1_skill2"></span>
         </div>
         <div id="2p">
-            <strong>플레이어 2:</strong><br>
+            <strong>플레이어 2:<span id="p2_name"></span></strong><br>
             HP: <span id="p2_hp"></span><br>
             MP: <span id="p2_mp"></span><br>
             스킬 1: <span id="p2_skill1"></span><br>
@@ -48,8 +48,8 @@
     <div id="selectPlayerArea">
         <button class="player-btn" data-player="kj">강지</button>
         <button class="player-btn" data-player="yr">예리</button>
-        <button class="player-btn" data-player="p3">플레이어 3</button>
-        <button class="player-btn" data-player="p4">플레이어 4</button>
+        <button class="player-btn" data-player="sw">서상</button>
+        <button class="player-btn" data-player="jw">지우</button>
     </div>
 
     <button id="startButton">게임 시작</button>
@@ -58,24 +58,28 @@
         // 플레이어 객체 정의
         const players = {
             kj: {
+                name: '강지',
                 hp: 120,
                 mp: 100,
                 skill1: '화염',
                 skill2: '방어'
             },
             yr: {
+                name: '예리',
                 hp: 100,
                 mp: 120,
                 skill1: '얼음',
                 skill2: '치유'
             },
             p3: {
+                name: '서상',
                 hp: 110,
                 mp: 110,
                 skill1: '번개',
                 skill2: '회복'
             },
             p4: {
+                name: '지우',
                 hp: 130,
                 mp: 90,
                 skill1: '바람',
@@ -93,6 +97,7 @@
 
             if (clickCount === 1) {
                 // 첫 번째 클릭: 플레이어 1 설정
+                $('#p1_name').text(players[playerKey].name);
                 $('#p1_hp').text(players[playerKey].hp);
                 $('#p1_mp').text(players[playerKey].mp);
                 $('#p1_skill1').text(players[playerKey].skill1);
@@ -100,6 +105,7 @@
                 selectedPlayers.player1 = players[playerKey]; // 선택된 플레이어 1 저장
             } else if (clickCount === 2) {
                 // 두 번째 클릭: 플레이어 2 설정
+                $('#p2_name').text(players[playerKey].name);
                 $('#p2_hp').text(players[playerKey].hp);
                 $('#p2_mp').text(players[playerKey].mp);
                 $('#p2_skill1').text(players[playerKey].skill1);
