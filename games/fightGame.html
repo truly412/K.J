@@ -18,6 +18,11 @@
         button {
             margin: 5px;
         }
+        #startButton {
+            display: none; /* 초기에는 숨김 */
+            margin-top: 20px;
+            padding: 10px 20px;
+        }
     </style>
     <!-- jQuery를 CDN에서 포함 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -25,14 +30,14 @@
 <body>
     <div id="fight">
         <div id="1p">
-            <strong>플레이어 1:<span id="p1_name"></span></strong><br>
+            <strong>플레이어 1:</strong><br>
             HP: <span id="p1_hp"></span><br>
             MP: <span id="p1_mp"></span><br>
             스킬 1: <span id="p1_skill1"></span><br>
             스킬 2: <span id="p1_skill2"></span>
         </div>
         <div id="2p">
-            <strong>플레이어 2:<span id="p2_name"></span></strong><br>
+            <strong>플레이어 2:</strong><br>
             HP: <span id="p2_hp"></span><br>
             MP: <span id="p2_mp"></span><br>
             스킬 1: <span id="p2_skill1"></span><br>
@@ -43,36 +48,34 @@
     <div id="selectPlayerArea">
         <button class="player-btn" data-player="kj">강지</button>
         <button class="player-btn" data-player="yr">예리</button>
-        <button class="player-btn" data-player="sw">서상</button>
-        <button class="player-btn" data-player="jw">지우</button>
+        <button class="player-btn" data-player="p3">플레이어 3</button>
+        <button class="player-btn" data-player="p4">플레이어 4</button>
     </div>
+
+    <button id="startButton">게임 시작</button>
     
     <script>
         // 플레이어 객체 정의
         const players = {
             kj: {
-                name: '강지',
                 hp: 120,
                 mp: 100,
                 skill1: '화염',
                 skill2: '방어'
             },
             yr: {
-                name: '예리',
                 hp: 100,
                 mp: 120,
                 skill1: '얼음',
                 skill2: '치유'
             },
-            sw: {
-                name: '서상',
+            p3: {
                 hp: 110,
                 mp: 110,
                 skill1: '번개',
                 skill2: '회복'
             },
-            jw: {
-                name: '지우',
+            p4: {
                 hp: 130,
                 mp: 90,
                 skill1: '바람',
@@ -81,6 +84,7 @@
         };
 
         let clickCount = 0; // 클릭 횟수 추적
+        let selectedPlayers = {}; // 선택된 플레이어 저장
 
         // jQuery를 사용한 버튼 클릭 이벤트 리스너
         $('.player-btn').click(function() {
@@ -89,20 +93,29 @@
 
             if (clickCount === 1) {
                 // 첫 번째 클릭: 플레이어 1 설정
-                $('#p1_name').text(players[playerKey].name);
                 $('#p1_hp').text(players[playerKey].hp);
                 $('#p1_mp').text(players[playerKey].mp);
                 $('#p1_skill1').text(players[playerKey].skill1);
                 $('#p1_skill2').text(players[playerKey].skill2);
+                selectedPlayers.player1 = players[playerKey]; // 선택된 플레이어 1 저장
             } else if (clickCount === 2) {
                 // 두 번째 클릭: 플레이어 2 설정
-                $('#p2_name').text(players[playerKey].name);
                 $('#p2_hp').text(players[playerKey].hp);
                 $('#p2_mp').text(players[playerKey].mp);
                 $('#p2_skill1').text(players[playerKey].skill1);
                 $('#p2_skill2').text(players[playerKey].skill2);
-                clickCount = 0; // 클릭 카운트 초기화
+                selectedPlayers.player2 = players[playerKey]; // 선택된 플레이어 2 저장
+
+                $('#startButton').show(); // 시작 버튼 표시
             }
+        });
+
+        // 게임 시작 버튼 클릭 이벤트 리스너
+        $('#startButton').click(function() {
+            // 선택된 플레이어 정보를 JSON 형식으로 localStorage에 저장
+            localStorage.setItem('selectedPlayers', JSON.stringify(selectedPlayers));
+            // startGame.html로 이동
+            window.location.href = './startGame.html';
         });
     </script>
 </body>
