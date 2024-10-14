@@ -52,13 +52,46 @@ function drawLadder() {
     }
 }
 
-// 게임 시작 시 플레이어가 선택한 위치에서 사다리 타기를 진행하는 함수
-function startGame() {
+// 플레이어 이동 로직
+function movePlayer(startColumn) {
+    let currentColumn = startColumn;
+    let currentRow = 0;
+
+    // 플레이어의 이동을 애니메이션처럼 보이게 함
+    const interval = setInterval(function() {
+        if (currentRow >= numRows) {
+            clearInterval(interval);
+            alert(`플레이어가 ${currentColumn + 1} 열로 도착했습니다!`);
+            return;
+        }
+
+        // 플레이어의 현재 위치
+        let x = currentColumn * columnSpacing;
+        let y = currentRow * rowSpacing;
+
+        // 현재 위치 그리기
+        drawLadder(); // 기존 사다리를 다시 그리기 (플레이어의 이동을 덮지 않기 위함)
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.arc(x, y, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 가로선이 있는지 체크하여 플레이어 이동
+        if (currentColumn > 0 && horizontalLines[currentRow][currentColumn - 1]) {
+            currentColumn--;
+        } else if (currentColumn < numColumns - 1 && horizontalLines[currentRow][currentColumn]) {
+            currentColumn++;
+        }
+
+        currentRow++;
+    }, 500);  // 플레이어가 한 줄씩 내려가는 속도 (500ms마다 한 줄씩 이동)
+}
+
+// 게임 시작 함수 (열 선택)
+function startGame(startColumn) {
     generateLadder();  // 사다리 생성
     drawLadder();  // 사다리 그리기
-    
-    // 여기서 플레이어의 이동 로직을 추가하여 사다리를 타게 할 수 있습니다.
-    // 예시: 플레이어가 선택한 열에서 출발하여 가로줄을 따라 이동.
+    movePlayer(startColumn);  // 선택된 열에서 플레이어 이동 시작
 }
 
 // 처음 로드 시 사다리를 생성하고 그리기
