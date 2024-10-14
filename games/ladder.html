@@ -140,14 +140,16 @@
         function highlightMultiplePatterns() {
             const text = textDisplay.innerText;
             let results = ''; // Variable to hold the results
-
+        
             for (let i = 3; i <= 10; i++) { // From "플플플" to "플플플플플플플플플플"
                 const pattern = '플'.repeat(i); // Create the pattern dynamically
                 const totalOccurrences = (text.match(new RegExp(pattern, 'g')) || []).length;
-
-                results += `'${pattern}' 확률: ${totalOccurrences}회<br>`;
+        
+                // Highlight each "플" character in red
+                const highlightedPattern = `<span class="highlight">${'플'.repeat(i).split('').join('</span><span class="highlight">')}</span>`;
+                results += `'${highlightedPattern}' 확률: ${totalOccurrences}회<br>`;
             }
-
+        
             probabilitiesDiv.innerHTML = results; // Display the results in the probabilities div
         }
 
