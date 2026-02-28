@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>studioPhotoWorldCup - Game</title>
+  <meta name="description" content="브라우저에서 폴더 선택 → 랜덤 2장 매치 → 클릭 승자 진출" />
+  <meta name="theme-color" content="#0b0d12" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="wrap hero">
+    <header class="heroCard">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🎞️</div>
+        <div>
+          <h1 class="title">studioPhotoWorldCup</h1>
+          <p class="subtitle">
+            폴더 선택 → 라운드 선택 → 시작. 사진을 클릭해서 승자를 올려.
+          </p>
+        </div>
+      </div>
+
+      <section class="panel heroActions">
+        <div class="controls">
+          <label class="file">
+            <input id="picker" type="file" accept="image/*" multiple webkitdirectory />
+            <span>폴더 선택</span>
+          </label>
+
+          <select id="sizeSelect" class="select" aria-label="라운드 크기">
+            <option value="16">16강</option>
+            <option value="32" selected>32강</option>
+            <option value="64">64강</option>
+            <option value="128">128강</option>
+            <option value="all">전체(가능한 만큼)</option>
+          </select>
+
+          <button id="btnStart" class="btn" disabled>시작</button>
+          <button id="btnRestart" class="btn ghost" disabled>다시 시작</button>
+          <button id="btnUndo" class="btn ghost" disabled>되돌리기</button>
+          <a class="btn ghost" href="/">메인</a>
+        </div>
+
+        <div class="status" id="status">폴더를 선택해줘.</div>
+      </section>
+
+      <div class="tips">
+        <div class="tip">🖱️ 클릭 = 승자 선택</div>
+        <div class="tip">↩️ 되돌리기 = 직전 매치로</div>
+        <div class="tip">⬇️ 결과 JSON 저장 가능</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="match" id="match" hidden>
+        <div class="card" id="leftCard" role="button" tabindex="0" aria-label="왼쪽 사진 선택">
+          <div class="imgbox">
+            <img id="leftImg" alt="왼쪽 후보" />
+          </div>
+          <div class="meta">
+            <div class="name" id="leftName"></div>
+          </div>
+        </div>
+
+        <div class="vs">VS</div>
+
+        <div class="card" id="rightCard" role="button" tabindex="0" aria-label="오른쪽 사진 선택">
+          <div class="imgbox">
+            <img id="rightImg" alt="오른쪽 후보" />
+          </div>
+          <div class="meta">
+            <div class="name" id="rightName"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel logpanel">
+        <div class="loghead">
+          <h2>진행 로그</h2>
+          <button id="btnExport" class="btn tiny ghost" disabled>결과 JSON 저장</button>
+        </div>
+        <ol class="log" id="log"></ol>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>Tip: 주소는 <code>/studioPhotoWorldCup</code> 로 접속 가능 (Netlify rewrite)</small>
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

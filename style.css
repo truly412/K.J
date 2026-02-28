@@ -16,9 +16,6 @@ body{
 }
 .wrap{ max-width:1100px; margin:0 auto; padding:18px; }
 
-.header h1{ margin:0 0 6px; font-size:28px; }
-.sub{ margin:0; color:var(--muted); line-height:1.4; }
-
 .panel{
   background: rgba(18,22,34,.82);
   border:1px solid var(--line);
@@ -33,6 +30,7 @@ body{
   gap:10px;
   align-items:center;
 }
+
 .file input{ display:none; }
 .file span{
   display:inline-flex;
@@ -43,7 +41,9 @@ body{
   background:#1a2240;
   border:1px solid var(--line);
   cursor:pointer;
+  user-select:none;
 }
+
 .select{
   padding:10px 12px;
   border-radius:12px;
@@ -59,6 +59,10 @@ body{
   background: #1b2a4c;
   color:var(--text);
   cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
 .btn:disabled{ opacity:.45; cursor:not-allowed; }
 .btn.ghost{ background:transparent; }
@@ -109,6 +113,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
+  min-height: 260px;
 }
 .imgbox img{
   max-width:100%;
@@ -132,6 +137,7 @@ body{
   gap:10px;
 }
 .loghead h2{ margin:0; font-size:16px; color:var(--text); }
+
 .log{
   margin:10px 0 0;
   padding-left:22px;
@@ -143,10 +149,6 @@ body{
   padding-top:10px;
 }
 
-.footer{
-  color:var(--muted);
-  padding-bottom:32px;
-}
 code{ color:var(--accent); }
 
 .hero { padding-top: 26px; }
