@@ -1,41 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/styles.css">
-    <title>Index Page</title>
-    <script src="script.js" defer></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column; /* 세로 방향으로 요소 정렬 */
-            align-items: center; /* 수평 중앙 정렬 */
-            justify-content: center; /* 수직 중앙 정렬 */
-            height: 100vh; /* 화면 높이 100% 설정 */
-            margin: 0; /* 기본 마진 제거 */
-        }
-
-        h1 {
-            margin-bottom: 20px; /* h1과 버튼 사이에 여백 추가 */
-        }
-
-        #goToMain {
-            padding: 10px 20px; /* 버튼의 패딩 조정 */
-            font-size: 16px; /* 버튼 텍스트 크기 */
-            cursor: pointer; /* 포인터 커서 */
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>사진 월드컵</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>What is your MBTI?</h1>
-    <div>
-        <button id="goToMain">TEST START</button>
-    </div>
+  <header class="wrap header">
+    <h1>사진 월드컵</h1>
+    <p class="sub">
+      폴더를 선택하면 이미지들을 불러와서 랜덤 매치를 진행해.
+      (승자는 클릭해서 선택)
+    </p>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="controls">
+        <label class="file">
+          <input id="picker" type="file" accept="image/*" multiple webkitdirectory />
+          <span>폴더 선택</span>
+        </label>
+
+        <select id="sizeSelect" class="select">
+          <option value="16">16강</option>
+          <option value="32" selected>32강</option>
+          <option value="64">64강</option>
+          <option value="128">128강</option>
+          <option value="all">전체(가능한 만큼)</option>
+        </select>
+
+        <button id="btnStart" class="btn" disabled>시작</button>
+        <button id="btnRestart" class="btn ghost" disabled>다시 시작</button>
+        <button id="btnUndo" class="btn ghost" disabled>되돌리기</button>
+      </div>
+
+      <div class="status" id="status">
+        폴더를 선택해줘.
+      </div>
+    </section>
+
+    <section class="match" id="match" hidden>
+      <div class="card" id="leftCard" role="button" tabindex="0" aria-label="왼쪽 사진 선택">
+        <div class="imgbox">
+          <img id="leftImg" alt="왼쪽 후보" />
+        </div>
+        <div class="meta">
+          <div class="name" id="leftName"></div>
+        </div>
+      </div>
+
+      <div class="vs">VS</div>
+
+      <div class="card" id="rightCard" role="button" tabindex="0" aria-label="오른쪽 사진 선택">
+        <div class="imgbox">
+          <img id="rightImg" alt="오른쪽 후보" />
+        </div>
+        <div class="meta">
+          <div class="name" id="rightName"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel logpanel">
+      <div class="loghead">
+        <h2>진행 로그</h2>
+        <button id="btnExport" class="btn tiny ghost" disabled>결과 JSON 저장</button>
+      </div>
+      <ol class="log" id="log"></ol>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <small>
+      폴더 선택은 <code>webkitdirectory</code>를 사용해 전체 파일을 가져와.
+      객체 URL은 사용 후 해제해 메모리 누수를 막아. 
+    </small>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
-<script>
-    document.getElementById('goToMain').addEventListener('click', function() {
-        window.location.href = '/html/yeri/question.html';
-    });
-</script>
 </html>
