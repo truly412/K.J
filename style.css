@@ -148,3 +148,67 @@ body{
   padding-bottom:32px;
 }
 code{ color:var(--accent); }
+
+.hero { padding-top: 26px; }
+
+.heroCard{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  padding:18px;
+  border-radius:22px;
+  border:1px solid var(--line);
+  background: rgba(18,22,34,.65);
+  backdrop-filter: blur(8px);
+}
+
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.logo{
+  width:44px; height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#0f1530;
+  font-size:22px;
+}
+
+.title{
+  margin:0;
+  font-size:30px;
+  letter-spacing:.2px;
+}
+
+.subtitle{
+  margin:6px 0 0;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.heroActions{ border-radius:18px; }
+
+.tips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  color:var(--muted);
+}
+
+.tip{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px dashed rgba(35,42,60,.9);
+  background: rgba(18,22,34,.35);
+}
+
+.footer{
+  margin-top:18px;
+  color:var(--muted);
+  padding-bottom: 18px;
+}

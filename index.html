@@ -3,81 +3,82 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>사진 월드컵</title>
+  <title>studioPhotoWolrdCup</title>
+  <meta name="description" content="폴더에서 사진을 불러와 랜덤 매치로 최종 우승을 뽑는 스튜디오 사진 월드컵" />
   <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0b0d12" />
 </head>
 <body>
-  <header class="wrap header">
-    <h1>사진 월드컵</h1>
-    <p class="sub">
-      폴더를 선택하면 이미지들을 불러와서 랜덤 매치를 진행해.
-      (승자는 클릭해서 선택)
-    </p>
-  </header>
-
-  <main class="wrap">
-    <section class="panel">
-      <div class="controls">
-        <label class="file">
-          <input id="picker" type="file" accept="image/*" multiple webkitdirectory />
-          <span>폴더 선택</span>
-        </label>
-
-        <select id="sizeSelect" class="select">
-          <option value="16">16강</option>
-          <option value="32" selected>32강</option>
-          <option value="64">64강</option>
-          <option value="128">128강</option>
-          <option value="all">전체(가능한 만큼)</option>
-        </select>
-
-        <button id="btnStart" class="btn" disabled>시작</button>
-        <button id="btnRestart" class="btn ghost" disabled>다시 시작</button>
-        <button id="btnUndo" class="btn ghost" disabled>되돌리기</button>
-      </div>
-
-      <div class="status" id="status">
-        폴더를 선택해줘.
-      </div>
-    </section>
-
-    <section class="match" id="match" hidden>
-      <div class="card" id="leftCard" role="button" tabindex="0" aria-label="왼쪽 사진 선택">
-        <div class="imgbox">
-          <img id="leftImg" alt="왼쪽 후보" />
-        </div>
-        <div class="meta">
-          <div class="name" id="leftName"></div>
+  <div class="wrap hero">
+    <header class="heroCard">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🏆</div>
+        <div>
+          <h1 class="title">studioPhotoWolrdCup</h1>
+          <p class="subtitle">
+            폴더를 선택하면 사진들을 불러와서 랜덤 매치로 우승을 뽑아.
+            클릭으로 승자를 선택해 진행해봐.
+          </p>
         </div>
       </div>
 
-      <div class="vs">VS</div>
+      <div class="heroActions panel">
+        <div class="controls">
+          <label class="file">
+            <input id="picker" type="file" accept="image/*" multiple webkitdirectory />
+            <span>폴더 선택</span>
+          </label>
 
-      <div class="card" id="rightCard" role="button" tabindex="0" aria-label="오른쪽 사진 선택">
-        <div class="imgbox">
-          <img id="rightImg" alt="오른쪽 후보" />
+          <select id="sizeSelect" class="select" aria-label="라운드 크기">
+            <option value="16">16강</option>
+            <option value="32" selected>32강</option>
+            <option value="64">64강</option>
+            <option value="128">128강</option>
+            <option value="all">전체(가능한 만큼)</option>
+          </select>
+
+          <button id="btnStart" class="btn" disabled>시작</button>
+          <button id="btnRestart" class="btn ghost" disabled>다시 시작</button>
+          <button id="btnUndo" class="btn ghost" disabled>되돌리기</button>
         </div>
-        <div class="meta">
-          <div class="name" id="rightName"></div>
+
+        <div class="status" id="status">폴더를 선택해줘.</div>
+      </div>
+
+      <div class="tips">
+        <div class="tip">💡 사진은 브라우저 보안 때문에 “선택한 것만” 불러올 수 있어.</div>
+        <div class="tip">⌨️ 카드에 포커스 후 Enter/Space로도 선택 가능.</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="match" id="match" hidden>
+        <div class="card" id="leftCard" role="button" tabindex="0" aria-label="왼쪽 사진 선택">
+          <div class="imgbox"><img id="leftImg" alt="왼쪽 후보" /></div>
+          <div class="meta"><div class="name" id="leftName"></div></div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel logpanel">
-      <div class="loghead">
-        <h2>진행 로그</h2>
-        <button id="btnExport" class="btn tiny ghost" disabled>결과 JSON 저장</button>
-      </div>
-      <ol class="log" id="log"></ol>
-    </section>
-  </main>
+        <div class="vs">VS</div>
 
-  <footer class="wrap footer">
-    <small>
-      폴더 선택은 <code>webkitdirectory</code>를 사용해 전체 파일을 가져와.
-      객체 URL은 사용 후 해제해 메모리 누수를 막아. 
-    </small>
-  </footer>
+        <div class="card" id="rightCard" role="button" tabindex="0" aria-label="오른쪽 사진 선택">
+          <div class="imgbox"><img id="rightImg" alt="오른쪽 후보" /></div>
+          <div class="meta"><div class="name" id="rightName"></div></div>
+        </div>
+      </section>
+
+      <section class="panel logpanel">
+        <div class="loghead">
+          <h2>진행 로그</h2>
+          <button id="btnExport" class="btn tiny ghost" disabled>결과 JSON 저장</button>
+        </div>
+        <ol class="log" id="log"></ol>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>© studioPhotoWolrdCup — local photo picker world cup</small>
+    </footer>
+  </div>
 
   <script src="app.js"></script>
 </body>
